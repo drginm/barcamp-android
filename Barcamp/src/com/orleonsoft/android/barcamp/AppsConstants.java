@@ -29,6 +29,7 @@ public interface AppsConstants {
 		
 		
 		String NAME_TABLE_PLACE="place";
+		String NAME_TABLE_UNCONFERENCE="unconference";
 		
 		String _ID="_id integer";
 		
