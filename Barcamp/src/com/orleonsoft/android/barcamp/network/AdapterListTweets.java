@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import com.orleonsoft.android.barcamp.R;
 import android.content.Context;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -57,6 +59,11 @@ public class AdapterListTweets extends ArrayAdapter<TweetMessage> {
 
 		TextView labMessage = (TextView) view
 				.findViewById(R.id.lab_tweet_message);
+		
+		Linkify.addLinks(labMessage, Linkify.WEB_URLS);
+		labMessage.setMovementMethod(LinkMovementMethod.getInstance());
+		
+		
 		
 		TextView labDateTime = (TextView) view
 				.findViewById(R.id.lab_date_time);

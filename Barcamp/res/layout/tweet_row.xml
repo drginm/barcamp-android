@@ -23,6 +23,9 @@
         android:layout_margin="5dp"
         android:layout_toRightOf="@+id/ic_tweet"
         android:gravity="left"
+        android:linksClickable="true"  
+        android:autoLink="web"
+        android:textColorLink="@color/blue"
         android:text="Mauricio Andrés Cadavid Hernández. PMP: Project Management Professional - PMI USA e Ingeniero Informático de la EIA"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

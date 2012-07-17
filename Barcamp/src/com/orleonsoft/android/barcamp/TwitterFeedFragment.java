@@ -54,7 +54,7 @@ public class TwitterFeedFragment extends Fragment {
 						
 		}
 		else{
-			adapterListTweets= new AdapterListTweets(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, getTimeLine());
+			adapterListTweets= new AdapterListTweets(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, getTimeLine());
 			listTimeLime.setAdapter(adapterListTweets);
 		}
 		
