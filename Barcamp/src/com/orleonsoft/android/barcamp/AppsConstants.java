@@ -11,7 +11,7 @@ public interface AppsConstants {
 
 	String LOG_TAG = "com.orleonsoft.android.barcamp";
 
-	String NAME_DATABASE = "barcamp.db";
+	
 
 	String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	String DATE_FORMAT = "yyyy-MM-dd";
@@ -21,5 +21,11 @@ public interface AppsConstants {
 	
 		
 	String TWITTER_FEED_BARCAMP="http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=20&q=https://twitter.com/statuses/user_timeline/36675597.rss";
+	
+	public interface Database{
+		
+		String NAME_DATABASE = "barcamp.db";
+		
+	}
 
 }

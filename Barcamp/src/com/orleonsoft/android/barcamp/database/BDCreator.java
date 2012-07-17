@@ -21,13 +21,15 @@ import android.util.Log;
 public class BDCreator extends SQLiteOpenHelper {
 		
 	public BDCreator(Context context) {
-		super(context, AppsConstants.NAME_DATABASE, null, 1);
+		super(context, AppsConstants.Database.NAME_DATABASE, null, 1);
 
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase bd) {
 		
+		
+		bd.execSQL("");
 		
 		Log.d(AppsConstants.LOG_TAG, "BD CREATOR --> onCreate()");
 		

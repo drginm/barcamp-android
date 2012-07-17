@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_twitter_logo"
         android:layout_marginTop="10dp"
+        android:listSelector="@drawable/selector_row_tweet"
         ></ListView>
 
 </RelativeLayout>
