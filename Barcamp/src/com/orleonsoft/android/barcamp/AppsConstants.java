@@ -1,5 +1,6 @@
 package com.orleonsoft.android.barcamp;
 
+
 /**
  * Archivo: AppsConstants.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
  * https://twitter.com/ingyesid Fecha:10/07/2012
@@ -25,6 +26,19 @@ public interface AppsConstants {
 	public interface Database{
 		
 		String NAME_DATABASE = "barcamp.db";
+		
+		
+		String NAME_TABLE_PLACE="place";
+		
+		String _ID="_id integer";
+		
+		String PRIMARY_KEY = "PRIMARY KEY";
+		String INTEGER_NOT_NULL = "INTEGER NOT NULL";
+		String INTEGER1_NOT_NULL = "INTEGER(1) NOT NULL";
+	    String DATE_NOT_NULL = " DATE NOT NULL";
+	    String TIMESTAMP_NOT_NULL = " TIMESTAMP NOT NULL";
+		String TEXT_NOT_NULL = "TEXT NOT NULL";
+		String TEXT = "TEXT";
 		
 	}
 
