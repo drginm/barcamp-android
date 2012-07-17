@@ -7,10 +7,6 @@ package com.orleonsoft.android.barcamp;
  */
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.viewpagerindicator.TitlePageIndicator;
 
 import android.os.Bundle;
@@ -40,15 +36,6 @@ public class HomeActivity extends FragmentActivity {
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		titleIndicator.setViewPager(pager);
 		
-		try {
-			 JSONObject object =JSONParser.getTweets("http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=20&q=https://twitter.com/statuses/user_timeline/36675597.rss");
-			 System.out.println(object.getJSONObject("responseData").getJSONObject("feed").getJSONArray("entries"));
-			 
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 
