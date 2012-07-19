@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ import android.util.Log;
 
 public class JSONParser {
 
-	public static JSONObject getJSONFromURL(String url) throws IOException {
+	public static JSONArray getJSONFromURL(String url) throws IOException {
 		try {
 			// Building the request
 			AndroidHttpClient httpClient = AndroidHttpClient
@@ -42,7 +43,7 @@ public class JSONParser {
 			// check the response if it's ok
 			if (statusCode != HttpStatus.SC_OK) {
 				httpClient.close();
-				return new JSONObject();
+				return new JSONArray();
 			}
 
 			final HttpEntity entity = httpResponse.getEntity();
@@ -51,7 +52,7 @@ public class JSONParser {
 			entity.consumeContent();			
 			httpClient.close();
 			
-			return new JSONObject(data);
+			return new JSONArray(data);
 		} catch (URISyntaxException e) {
 			throw new IOException("Error internet connection");
 		} catch (ClientProtocolException e) {
@@ -65,10 +66,12 @@ public class JSONParser {
 	}
 	
 	/**
-	 * hace una peticion http y lee la respuesta del servidor
+	 * hace una peticion http y lee la respuesta del servidor la convierte en un JSON
 	 * 
 	 * @param array
 	 * @param nombreFormulario
+	 * 
+	 * @return JSONObject
 	 * 
 	 */
 	public static JSONObject getTweets(String url) throws JSONException {

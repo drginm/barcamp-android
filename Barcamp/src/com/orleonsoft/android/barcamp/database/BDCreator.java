@@ -38,6 +38,19 @@ public class BDCreator extends SQLiteOpenHelper {
 						"Image"+" "+Database.TEXT+						
 						")");
 		
+	    // creamo la tabla unconferences
+				bd.execSQL("CREATE TABLE "+Database.NAME_TABLE_UNCONFERENCE+" (" +
+						Database._ID+" "+Database.PRIMARY_KEY+","+
+						"Name"+" "+Database.TEXT_NOT_NULL+","+
+						"Description"+" "+Database.TEXT_NOT_NULL+","+
+						"Place"+" "+Database.INTEGER_NOT_NULL+","+
+						"Keywords"+" "+Database.TEXT_NOT_NULL+","+
+						"Speakers"+" "+Database.TEXT_NOT_NULL+","+	
+						"StartTime"+" "+Database.TIMESTAMP_NOT_NULL+","+
+						"EndTime"+" "+Database.TIMESTAMP_NOT_NULL+","+
+						"ScheduleId"+" "+Database.INTEGER_NOT_NULL+","+
+						"Schedule"+" "+Database.TEXT_NOT_NULL+","+
+						")");
 		
 	}
 

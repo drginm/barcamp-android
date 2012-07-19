@@ -5,6 +5,7 @@ package com.orleonsoft.android.barcamp.database;
  * https://twitter.com/ingyesid Fecha:10/07/2012
  */
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -74,6 +75,47 @@ public class BDAdapter {
 		return dataBase.query(table, columns, selection, selectionArgs, null,
 				null, orderBy);
 	}
+	
+	/**
+	 * Borra los datos de una tabla
+	 * 
+	 * @param table
+	 *            Nombre de la tabla
+	 * @param where
+	 *            Atributos de la sentencia where
+	 * 
+	 *            example where: _id = ? AND column1 = ? AND column2 = ?...OR
+	 * 
+	 * @param whereArgs
+	 *            Valores a remplazar por los (?) en la sentencia where
+	 * 
+	 *            example:new String[] {"value1", "value2", ...}
+	 * 
+	 * 
+	 * @return El numero de filas afectadas si una whereClause es pasada, 0 de
+	 *         otra forma. Para remover todas las filas y obtener un conteo de
+	 *         las filas borradas pase 1 en el parametro whereClause.
+	 * 
+	 */
+	public long delete(String table, String where, String whereArgs[]) {
+		return dataBase.delete(table, where, whereArgs);
+	}
+	
+	/**
+	 * Inserta una fila en una tabla
+	 * 
+	 * @param table
+	 *            Nombre de la tabla en la cual insertar los datos
+	 * @param values
+	 *            ContentValues con los datos a insertar en la tabla
+	 * 
+	 * @return El id de la nueva fila insertada o -1 si algun error ocurre.
+	 */
+	public long insert(String table, ContentValues values) {
+		return dataBase.insert(table, null, values);
+	}
+
+	
 
 	
 

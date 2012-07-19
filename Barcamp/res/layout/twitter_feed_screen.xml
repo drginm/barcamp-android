@@ -5,7 +5,7 @@
     android:background="@android:color/black" >
 
     <TextView
-        android:id="@+id/lab_twitter"
+        android:id="@+id/lab_twitter_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/lab_twitter"
+        android:layout_toRightOf="@+id/lab_twitter_account"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_twitter_logo"
         android:contentDescription="@string/app_name" />
     

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -27,6 +28,7 @@ public class TwitterFeedFragment extends Fragment {
 	
 	private View viewRoot;
 	private ListView listTimeLime;
+    private TextView labTwitterAccount;
 	
 	AdapterListTweets adapterListTweets;
 	
@@ -36,10 +38,8 @@ public class TwitterFeedFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-			
-	
+		
 	}
-	
 	
 
 	@Override
@@ -48,6 +48,8 @@ public class TwitterFeedFragment extends Fragment {
 		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null, false); 
 		
 		listTimeLime=(ListView)viewRoot.findViewById(R.id.list_time_line);
+		labTwitterAccount=(TextView)viewRoot.findViewById(R.id.lab_twitter_account);
+		labTwitterAccount.setText(AppsConstants.TWITTER_ACCOUNT);
 		
 		if(!Utils.isNetworkAvailable(getActivity().getApplicationContext())){
 			Toast.makeText(getActivity().getApplicationContext(), "Error cargando Tuits, no hay conexion a internet", Toast.LENGTH_SHORT).show();
@@ -66,8 +68,8 @@ public class TwitterFeedFragment extends Fragment {
 		ArrayList<TweetMessage> result=new ArrayList<TweetMessage>();
 		 JSONObject object;
 		try {
-			object = JSONParser.getTweets("http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=20&q=https://twitter.com/statuses/user_timeline/36675597.rss");
-			
+			object = JSONParser.getTweets(AppsConstants.RSS_TO_JSON_SERVICE_URL+AppsConstants.TWITTER_FEED_BARCAMP);
+						
 			JSONArray arrayTweets= object.getJSONObject("responseData").getJSONObject("feed").getJSONArray("entries");
 			
 			for (int i = 0; i < arrayTweets.length(); i++) {
