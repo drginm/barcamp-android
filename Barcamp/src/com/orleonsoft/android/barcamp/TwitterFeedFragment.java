@@ -45,7 +45,7 @@ public class TwitterFeedFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null); 
+		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null, false); 
 		
 		listTimeLime=(ListView)viewRoot.findViewById(R.id.list_time_line);
 		
