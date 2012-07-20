@@ -22,9 +22,6 @@ import android.widget.Toast;
 /**
  * Archivo: TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
  * https://twitter.com/ingyesid Fecha:12/07/2012
- *Archivo: TwitterFeedActivity.java
- *Autor:Yesid Lazaro lazaro.yesid@gmail.com / https://twitter.com/ingyesid
- *Fecha:12/07/2012
  */
 
 public class TwitterFeedFragment extends Fragment {
@@ -71,29 +68,6 @@ public class TwitterFeedFragment extends Fragment {
 				timeLine);
 		listTimeLime.setAdapter(adapterListTweets);
 
-		return viewRoot;
-		
-		if(!Utils.isNetworkAvailable(getActivity().getApplicationContext())){
-			Toast.makeText(getActivity().getApplicationContext(), "Error cargando Tuits, no hay conexion a internet", Toast.LENGTH_SHORT).show();
-						
-		}
-		else{
-			adapterListTweets= new AdapterListTweets(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, getTimeLine());
-			listTimeLime.setAdapter(adapterListTweets);
-		}
-		
-		
-		return viewRoot; 
-		
-		if(!Utils.isNetworkAvailable(getActivity().getApplicationContext())){
-			Toast.makeText(getActivity().getApplicationContext(), "Error cargando Tuits, no hay conexion a internet", Toast.LENGTH_SHORT).show();
-						
-		}
-		else{
-			adapterListTweets= new AdapterListTweets(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, getTimeLine());
-			listTimeLime.setAdapter(adapterListTweets);
-		}
-		
 		
 		return viewRoot; 
 	}
