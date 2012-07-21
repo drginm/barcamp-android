@@ -21,10 +21,9 @@ import android.widget.Toast;
 
 /**
  * Archivo: TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
+ * https://twitter.com/ingyesid Fecha:12/07/2012 Archivo:
+ * TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
  * https://twitter.com/ingyesid Fecha:12/07/2012
- *Archivo: TwitterFeedActivity.java
- *Autor:Yesid Lazaro lazaro.yesid@gmail.com / https://twitter.com/ingyesid
- *Fecha:12/07/2012
  */
 
 public class TwitterFeedFragment extends Fragment {
@@ -34,7 +33,7 @@ public class TwitterFeedFragment extends Fragment {
 	private TextView labTwitterAccount;
 
 	private AdapterListTweets adapterListTweets;
-	
+
 	ArrayList<TweetMessage> timeLine;
 
 	@Override
@@ -47,19 +46,19 @@ public class TwitterFeedFragment extends Fragment {
 					Toast.LENGTH_SHORT).show();
 
 		} else {
-			if (timeLine==null) {
-					timeLine=getTimeLine();
-					Log.d(AppsConstants.LOG_TAG, "get time line");
+			if (timeLine == null) {
+				timeLine = getTimeLine();
+				Log.d(AppsConstants.LOG_TAG, "get time line");
 			}
 		}
-		
+
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null); 
+		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null);
 
 		listTimeLime = (ListView) viewRoot.findViewById(R.id.list_time_line);
 		labTwitterAccount = (TextView) viewRoot
@@ -72,30 +71,6 @@ public class TwitterFeedFragment extends Fragment {
 		listTimeLime.setAdapter(adapterListTweets);
 
 		return viewRoot;
-		
-		if(!Utils.isNetworkAvailable(getActivity().getApplicationContext())){
-			Toast.makeText(getActivity().getApplicationContext(), "Error cargando Tuits, no hay conexion a internet", Toast.LENGTH_SHORT).show();
-						
-		}
-		else{
-			adapterListTweets= new AdapterListTweets(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, getTimeLine());
-			listTimeLime.setAdapter(adapterListTweets);
-		}
-		
-		
-		return viewRoot; 
-		
-		if(!Utils.isNetworkAvailable(getActivity().getApplicationContext())){
-			Toast.makeText(getActivity().getApplicationContext(), "Error cargando Tuits, no hay conexion a internet", Toast.LENGTH_SHORT).show();
-						
-		}
-		else{
-			adapterListTweets= new AdapterListTweets(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, getTimeLine());
-			listTimeLime.setAdapter(adapterListTweets);
-		}
-		
-		
-		return viewRoot; 
 	}
 
 	public ArrayList<TweetMessage> getTimeLine() {

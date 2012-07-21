@@ -6,12 +6,11 @@ package com.orleonsoft.android.barcamp;
  *Fecha:10/07/2012
  */
 
-
-import com.viewpagerindicator.TitlePageIndicator;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+
+import com.viewpagerindicator.TitlePageIndicator;
 
 public class HomeActivity extends FragmentActivity {
 
@@ -27,16 +26,15 @@ public class HomeActivity extends FragmentActivity {
 		pager = (ViewPager) findViewById(R.id.pager);
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
-		adapter.addFragment(new PlainFragment() );
-		adapter.addFragment(new PlainFragment() );
+		adapter.addFragment(new PlainFragment());
+		adapter.addFragment(new ListSalasFragment());
 		adapter.addFragment(new TwitterFeedFragment());
 		pager.setAdapter(adapter);
-		
 
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		titleIndicator.setViewPager(pager);
-		
-	}
-	
 
+	}
+
+	
 }
