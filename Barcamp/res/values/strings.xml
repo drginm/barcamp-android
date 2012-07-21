@@ -1,9 +1,12 @@
 <resources>
 
-    <string name="app_name">Barcamp Med</string>    
+    <string name="app_name">Barcamp Med</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_home">Home</string>
-    
+    <string name="title_fragment_photos">Reciente</string>
+    <string name="title_fragment_twitter">Twitter</string>
+    <string name="title_fragment_programacion">Programación</string>
+    <string name="title_fragment_favoritos">Favoritos</string>
     <string name="twitter_account">Barcamp_Med</string>
     <string name="lab_programacion">Programaci\u00F3n</string>
 
