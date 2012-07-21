@@ -34,13 +34,12 @@ public class HomeActivity extends FragmentActivity {
 		adapter.addFragment(new PlainFragment() );
 		adapter.addFragment(new PlainFragment() );
 		adapter.addFragment(new TwitterFeedFragment());
+		adapter.addFragment(new PlainFragment() );
+		
 		pager.setAdapter(adapter);
 		
-		titleIndicator.setViewPager(pager);
-		titleIndicator.setVisibility(View.VISIBLE);
-		titleIndicator.setTextColor(Color.WHITE);
+		titleIndicator.setViewPager(pager,1);
 		
-
 		
 	}
 	
