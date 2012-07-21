@@ -27,15 +27,19 @@ public class PagerAdapter extends FragmentPagerAdapter {
 		// TODO Auto-generated method stub
 		switch (position) {
 		case 0:
-			return "Home";			
+			return "Favoritas";	
 		case 1:
-			return "Favoritas";
+			return "Home";	
 		case 2:
 			return "Twitter";
+		case 3:
+			return "Photos";
 		default:
 			return "";
 		}
 	}
+	
+	
 	
 	
 	@Override
