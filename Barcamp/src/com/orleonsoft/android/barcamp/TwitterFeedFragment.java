@@ -31,7 +31,7 @@ public class TwitterFeedFragment extends Fragment {
 	private TextView labTwitterAccount;
 
 	private AdapterListTweets adapterListTweets;
-	
+
 	ArrayList<TweetMessage> timeLine;
 
 	@Override
@@ -42,55 +42,57 @@ public class TwitterFeedFragment extends Fragment {
 			Toast.makeText(getActivity().getBaseContext(),
 					"Error cargando Tuits, no hay conexion a internet",
 					Toast.LENGTH_SHORT).show();
-			
-			timeLine= new ArrayList<TweetMessage>();
+
+			timeLine = new ArrayList<TweetMessage>();
 
 		} else {
-			if (timeLine==null) {
-					timeLine=getTimeLine();
-					Log.d(AppsConstants.LOG_TAG, "get time line");
+			if (timeLine == null) {
+				timeLine = getTimeLine();
+				Log.d(AppsConstants.LOG_TAG, "get time line");
 			}
 		}
-		
+
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null); 
+		viewRoot = inflater.inflate(R.layout.twitter_feed_screen, null);
 
 		listTimeLime = (ListView) viewRoot.findViewById(R.id.list_time_line);
 		labTwitterAccount = (TextView) viewRoot
 				.findViewById(R.id.lab_twitter_account);
-		
+
 		labTwitterAccount.setText(AppsConstants.TWITTER_ACCOUNT);
 
 		adapterListTweets = new AdapterListTweets(getActivity()
 				.getBaseContext(), android.R.layout.simple_list_item_1,
 				timeLine);
-		
+
 		listTimeLime.setAdapter(adapterListTweets);
 
-		
-		return viewRoot; 
+		return viewRoot;
 	}
 
 	public ArrayList<TweetMessage> getTimeLine() {
 		ArrayList<TweetMessage> result = new ArrayList<TweetMessage>();
 		JSONObject object;
 		try {
-			object = JSONParser.getTweets(AppsConstants.RSS_TO_JSON_SERVICE_URL+AppsConstants.TWITTER_FEED_BARCAMP);
+			object = JSONParser.getJSONObjectFromURL(AppsConstants.RSS_TO_JSON_SERVICE_URL
+					+ AppsConstants.TWITTER_FEED_BARCAMP);
 
-			JSONArray arrayTweets = object.getJSONObject(AppsConstants.KEY_RESPONSE)
-					.getJSONObject(AppsConstants.KEY_FEED).getJSONArray(AppsConstants.KEY_ENTRIES);
+			JSONArray arrayTweets = object
+					.getJSONObject(AppsConstants.KEY_RESPONSE)
+					.getJSONObject(AppsConstants.KEY_FEED)
+					.getJSONArray(AppsConstants.KEY_ENTRIES);
 
 			for (int i = 0; i < arrayTweets.length(); i++) {
 				JSONObject auxObject = arrayTweets.getJSONObject(i);
-				result.add(new TweetMessage(auxObject.getString(AppsConstants.KEY_CONTENT),
-						auxObject.getString(AppsConstants.KEY_PUBLISH_DATE)));
-				
-				
+				result.add(new TweetMessage(auxObject
+						.getString(AppsConstants.KEY_CONTENT), auxObject
+						.getString(AppsConstants.KEY_PUBLISH_DATE)));
+
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

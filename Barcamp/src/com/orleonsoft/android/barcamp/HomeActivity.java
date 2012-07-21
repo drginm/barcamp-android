@@ -9,11 +9,9 @@ package com.orleonsoft.android.barcamp;
 
 import com.viewpagerindicator.TitlePageIndicator;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 public class HomeActivity extends FragmentActivity {
 

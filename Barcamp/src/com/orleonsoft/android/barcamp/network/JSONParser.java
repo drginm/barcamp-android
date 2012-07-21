@@ -24,7 +24,7 @@ import android.util.Log;
 
 public class JSONParser {
 
-	public static JSONArray getJSONFromURL(String url) throws IOException {
+	public static JSONArray getJSONArrayFromURL(String url) throws IOException {
 		try {
 			// Building the request
 			AndroidHttpClient httpClient = AndroidHttpClient
@@ -74,7 +74,7 @@ public class JSONParser {
 	 * @return JSONObject
 	 * 
 	 */
-	public static JSONObject getTweets(String url) throws JSONException {
+	public static JSONObject getJSONObjectFromURL(String url) throws JSONException {
 		StringBuffer stringResponse = null;// para guardar la respuesta
 
 		// para leer la respuesta
@@ -107,10 +107,7 @@ public class JSONParser {
 
 				in.close();
 
-				//Log.i("RESPUESTAS", ""
-					//	+ response.getStatusLine().getStatusCode()
-						//+ stringResponse.toString());
-
+				
 			}
 
 		} catch (ClientProtocolException e) {
