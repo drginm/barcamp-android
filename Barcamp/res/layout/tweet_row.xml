@@ -26,7 +26,7 @@
         android:linksClickable="true"  
         android:autoLink="web"
         android:textColorLink="@color/blue"
-        android:text="Mauricio Andrés Cadavid Hernández. PMP: Project Management Professional - PMI USA e Ingeniero Informático de la EIA"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/lab_tweet_message"
         android:layout_below="@+id/lab_tweet_message"
-        android:text="10:00 AM"
+        android:text="@string/app_name"
         android:textColor="@color/blue" />
 
 </RelativeLayout>

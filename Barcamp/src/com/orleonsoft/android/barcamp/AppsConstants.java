@@ -24,6 +24,19 @@ public interface AppsConstants {
 	String TWITTER_FEED_BARCAMP = "https://twitter.com/statuses/user_timeline/36675597.rss";
 	String PICASA_ALBUM_URL = "https://picasaweb.google.com/data/feed/base/user/106535197990515868187/albumid/5766331512191621569?alt=rss&kind=photo&hl=es";
 
+	
+	String KEY_ENTRIES="entries";
+	String KEY_MEDIA_GROUPS="mediaGroups";
+	String KEY_TITLE="title";
+	String KEY_URL="url";
+	String KEY_CONTENTS="contents";
+	String KEY_CONTENT="content";
+	String KEY_RESPONSE="responseData";
+	String KEY_FEED="feed";
+	String KEY_PUBLISH_DATE="publishedDate";
+
+
+
 	public interface Database {
 
 		String NAME_DATABASE = "barcamp.db";

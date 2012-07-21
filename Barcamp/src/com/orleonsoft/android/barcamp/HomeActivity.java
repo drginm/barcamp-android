@@ -9,9 +9,11 @@ package com.orleonsoft.android.barcamp;
 
 import com.viewpagerindicator.TitlePageIndicator;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 public class HomeActivity extends FragmentActivity {
 
@@ -25,16 +27,20 @@ public class HomeActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_screen);
 		pager = (ViewPager) findViewById(R.id.pager);
+		titleIndicator=(TitlePageIndicator)findViewById(R.id.titles);
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
+		
 		adapter.addFragment(new PlainFragment() );
 		adapter.addFragment(new PlainFragment() );
 		adapter.addFragment(new TwitterFeedFragment());
 		pager.setAdapter(adapter);
 		
-
-		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		titleIndicator.setViewPager(pager);
+		titleIndicator.setVisibility(View.VISIBLE);
+		titleIndicator.setTextColor(Color.WHITE);
+		
+
 		
 	}
 	
