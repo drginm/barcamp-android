@@ -117,6 +117,7 @@ public class ListSalasFragment extends ListFragment {
 			mProgressDialog.setIndeterminate(true);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			mProgressDialog.setMessage("Cargando datos...");
+			mProgressDialog.show();
 		}
 
 		@Override

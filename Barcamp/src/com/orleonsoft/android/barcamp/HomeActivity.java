@@ -68,6 +68,7 @@ public class HomeActivity extends FragmentActivity {
 			mProgressDialog.setIndeterminate(true);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			mProgressDialog.setMessage("Descargando datos...");
+			mProgressDialog.show();
 		}
 
 		@Override
