@@ -51,12 +51,12 @@ public class HomeActivity extends FragmentActivity {
 				MODE_PRIVATE);
 
 		if (!settings.getBoolean("hayDatosDescargados", false)) {
-			new descargarConferenciasTask().execute();
+			new DescargarConferenciasTask().execute();
 		}
 
 	}
 
-	private class descargarConferenciasTask extends
+	private class DescargarConferenciasTask extends
 			AsyncTask<Void, Void, Boolean> {
 
 		private ProgressDialog mProgressDialog;
