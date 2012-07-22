@@ -38,7 +38,7 @@ public class ListSalasFragment extends ListFragment {
 		if (mDataSalas == null) {
 			try {
 				mDataSalas = JSONParser
-						.getJSONFromURL(AppsConstants.URL_GET_SALAS);
+						.getJSONArrayFromURL(AppsConstants.URL_GET_SALAS);
 
 			} catch (IOException e) {
 				mDataSalas = new JSONArray();
