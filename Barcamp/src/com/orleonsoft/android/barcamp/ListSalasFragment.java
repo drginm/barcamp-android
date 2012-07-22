@@ -1,11 +1,10 @@
 package com.orleonsoft.android.barcamp;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.app.ProgressDialog;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -15,13 +14,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.orleonsoft.android.barcamp.network.JSONParser;
+import com.orleonsoft.android.barcamp.database.BDAdapter;
+import com.orleonsoft.android.barcamp.network.Place;
 
 public class ListSalasFragment extends ListFragment {
 
-	private JSONArray mDataSalas;
 	private LayoutInflater mInflater;
 	private SalasEfficientAdapter mListAdapter;
+	private ArrayList<Place> mListSalas;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,23 +29,11 @@ public class ListSalasFragment extends ListFragment {
 
 		if (!Utils.isNetworkAvailable(getActivity().getApplicationContext())) {
 			Toast.makeText(getActivity().getApplicationContext(),
-					"Error cargando Tuits, no hay conexion a internet",
-					Toast.LENGTH_SHORT).show();
+					"Sin conexion a internet!", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
-		if (mDataSalas == null) {
-			try {
-				mDataSalas = JSONParser
-						.getJSONArrayFromURL(AppsConstants.URL_GET_SALAS);
-
-			} catch (IOException e) {
-				mDataSalas = new JSONArray();
-				e.printStackTrace();
-			}
-		}
-
-		mListAdapter = new SalasEfficientAdapter();
+		new ConsultarSalasTask().execute();
 
 	}
 
@@ -66,7 +54,7 @@ public class ListSalasFragment extends ListFragment {
 	// view holder
 	static class ViewHolder {
 		TextView nameSale;
-		TextView nameCoferencia;
+		TextView nextUnCoference;
 	}
 
 	// adapter list
@@ -74,17 +62,12 @@ public class ListSalasFragment extends ListFragment {
 
 		@Override
 		public int getCount() {
-			return mDataSalas.length();
+			return mListSalas.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			try {
-				return mDataSalas.getJSONObject(position);
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return new JSONObject();
-			}
+			return mListSalas.get(position);
 		}
 
 		@Override
@@ -107,21 +90,67 @@ public class ListSalasFragment extends ListFragment {
 				holder = new ViewHolder();
 				holder.nameSale = (TextView) convertView
 						.findViewById(R.id.lab_sala);
-				holder.nameCoferencia = (TextView) convertView
+				holder.nextUnCoference = (TextView) convertView
 						.findViewById(R.id.lab_proxima);
 				convertView.setTag(holder);
 			}
 
 			holder = (ViewHolder) convertView.getTag();
 
-			try {
-				JSONObject sala = mDataSalas.getJSONObject(position);
-				holder.nameSale.setText(sala.getString("Name"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+			holder.nameSale.setText(mListSalas.get(position).getName());
+			holder.nextUnCoference.setText(mListSalas.get(position)
+					.getNextUnconference());
+
 			return convertView;
 		}
 	}
 
+	private class ConsultarSalasTask extends AsyncTask<Void, Void, Void> {
+
+		private ProgressDialog mProgressDialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog.setCancelable(false);
+			mProgressDialog.setIndeterminate(true);
+			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			mProgressDialog.setMessage("Cargando datos...");
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			BDAdapter dbAdapter = new BDAdapter(getActivity());
+			dbAdapter.openDataBase();
+			Cursor cursor = dbAdapter.consultar(
+					AppsConstants.Database.NAME_TABLE_PLACE, null, null,
+					new String[] {}, null);
+			mListSalas = new ArrayList<Place>();
+
+			if (cursor != null) {
+				if (cursor.moveToFirst()) {
+					do {
+						Place p = new Place();
+						p.setIdentifier(cursor.getLong(0));
+						p.setName(cursor.getString(1));
+						p.setDescription(cursor.getString(2));
+						p.setImage(cursor.getString(3));
+						mListSalas.add(p);
+					} while (cursor.moveToNext());
+				}
+			}
+			dbAdapter.close();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			mProgressDialog.dismiss();
+			mListAdapter = new SalasEfficientAdapter();
+			setListAdapter(mListAdapter);
+		}
+
+	}
 }

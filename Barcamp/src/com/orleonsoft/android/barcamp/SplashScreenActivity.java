@@ -28,7 +28,7 @@ public class SplashScreenActivity extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
 				Intent intent = new Intent(SplashScreenActivity.this,
-						HomeActivity.class);
+						com.orleonsoft.android.barcamp.HomeActivity.class);
 				
 				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				startActivity(intent);

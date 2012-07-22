@@ -41,22 +41,23 @@ public class HomeActivity extends FragmentActivity {
 		adapter.addFragment(new PlainFragment());
 		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PhotosFragment());
-		
 
 		pager.setAdapter(adapter);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-		titleIndicator.setViewPager(pager,1);
+		titleIndicator.setViewPager(pager, 1);
 
 		SharedPreferences settings = getSharedPreferences("settings",
 				MODE_PRIVATE);
 
-		//if (!settings.getBoolean("hayDatosDescargados", false)) {
-		//new descargarConferenciasTask().execute();
-		//}
+
+		if (!settings.getBoolean("hayDatosDescargados", false)) {
+			new DescargarConferenciasTask().execute();
+		}
+
 
 	}
 
-	private class descargarConferenciasTask extends
+	private class DescargarConferenciasTask extends
 			AsyncTask<Void, Void, Boolean> {
 
 		private ProgressDialog mProgressDialog;
@@ -94,8 +95,8 @@ public class HomeActivity extends FragmentActivity {
 				for (int i = 0; i < salas.length(); i++) {
 					record = new ContentValues();
 					try {
-						record.put("_id", salas.getJSONObject(i)
-								.getString("Identifier"));
+						record.put("_id",
+								salas.getJSONObject(i).getString("Identifier"));
 						record.put("Name",
 								salas.getJSONObject(i).getString("Name"));
 						record.put("Description", salas.getJSONObject(i)
@@ -144,6 +145,7 @@ public class HomeActivity extends FragmentActivity {
 
 				}
 			}
+			dbAdapter.close();
 			return true;
 		}
 
