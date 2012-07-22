@@ -91,9 +91,8 @@ public class HomeActivity extends FragmentActivity {
 			if (salas != null && salas.length() > 0 && unconferences != null
 					&& unconferences.length() > 0) {
 				// insertar data de las salas en la tabla places
-				ContentValues record;
 				for (int i = 0; i < salas.length(); i++) {
-					record = new ContentValues();
+					ContentValues record = new ContentValues();
 					try {
 						record.put("_id",
 								salas.getJSONObject(i).getString("Identifier"));
@@ -114,7 +113,7 @@ public class HomeActivity extends FragmentActivity {
 
 				// insertar data de unconferences
 				for (int i = 0; i < unconferences.length(); i++) {
-					record = new ContentValues();
+					ContentValues record = new ContentValues();
 					try {
 						record.put("_id", unconferences.getJSONObject(i)
 								.getString("Identifier"));

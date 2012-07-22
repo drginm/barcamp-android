@@ -27,8 +27,10 @@ public class ListUnconferencesFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		return super.onCreateView(inflater, container, savedInstanceState);
+		mInflater = inflater;
+		View view = inflater.inflate(R.layout.unconference_panel, container,
+				false);
+		return view;
 	}
 
 	// view holder
