@@ -23,13 +23,13 @@ public class SplashScreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
-
+		// crea la db por primera vez
+		//BDAdapter dbAdapter = new BDAdapter(SplashScreenActivity.this);
+		//dbAdapter.openDataBase();
+		//dbAdapter.close();
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
-				// crea la db por primera vez
-				BDAdapter dbAdapter = new BDAdapter(SplashScreenActivity.this);
-				dbAdapter.openDataBase();
-				dbAdapter.close();
+				
 
 				Intent intent = new Intent(SplashScreenActivity.this,
 						com.orleonsoft.android.barcamp.HomeActivity.class);
