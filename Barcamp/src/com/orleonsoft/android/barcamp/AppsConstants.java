@@ -34,6 +34,7 @@ public interface AppsConstants {
 	String KEY_RESPONSE="responseData";
 	String KEY_FEED="feed";
 	String KEY_PUBLISH_DATE="publishedDate";
+	String KEY_DESCRIPTION="description";
 
 
 

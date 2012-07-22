@@ -38,7 +38,7 @@ public class HomeActivity extends FragmentActivity {
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
 		adapter.addFragment(new PlainFragment());
-		adapter.addFragment(new PlainFragment());
+		adapter.addFragment(new ListSalasFragment());
 		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PhotosFragment());
 

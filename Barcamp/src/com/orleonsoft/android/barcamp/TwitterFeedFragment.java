@@ -1,6 +1,5 @@
 package com.orleonsoft.android.barcamp;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,13 +48,13 @@ public class TwitterFeedFragment extends Fragment {
 		} else {
 			if (timeLine == null) {
 				timeLine = getTimeLine();
-				Log.d(AppsConstants.LOG_TAG, "get time line");
+				
 			}
 		}
 
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment");
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
