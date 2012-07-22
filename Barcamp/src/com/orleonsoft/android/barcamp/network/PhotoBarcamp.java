@@ -28,6 +28,11 @@ public class PhotoBarcamp {
 	public void setPhotoTitle(String photoTitle) {
 		PhotoTitle = photoTitle;
 	}
+	@Override
+	public String toString() {
+		return "PhotoBarcamp [PhotoURL=" + PhotoURL + ", PhotoTitle="
+				+ PhotoTitle + "]";
+	}
 	
 	
 	

@@ -1,21 +1,28 @@
 package com.orleonsoft.android.barcamp;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.orleonsoft.android.barcamp.network.AdapterListPhotos;
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.orleonsoft.android.barcamp.network.PhotoBarcamp;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -28,7 +35,7 @@ public class PhotosFragment extends Fragment {
 	private View viewRoot;
 	private ListView listPhotos;
 	private AdapterListPhotos adapterListPhotos;
-
+	LayoutInflater mInflater;
 	ArrayList<PhotoBarcamp> photos;
 
 	@Override
@@ -44,24 +51,29 @@ public class PhotosFragment extends Fragment {
 			photos = new ArrayList<PhotoBarcamp>();
 		} else {
 
-			photos = new ArrayList<PhotoBarcamp>();
+			photos = getListPhotos();
 		}
 
-		System.out.println(getListPhotos());
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment photos ");
+		
+		adapterListPhotos= new AdapterListPhotos();
 	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		mInflater = inflater;
 		viewRoot = inflater.inflate(R.layout.photos_feed_screen, null);
 
-		// listPhotos=(ListView)viewRoot.findViewById(R.id.list_photo);
+		listPhotos = (ListView) viewRoot.findViewById(R.id.list_photo);
 
-		// adapterListPhotos= new AdapterListPhotos(getActivity(),
-		// android.R.layout.simple_list_item_1,photos);
-
-		// listPhotos.setAdapter(adapterListPhotos);
+		listPhotos.setAdapter(adapterListPhotos);
 
 		return viewRoot;
 	}
@@ -80,17 +92,18 @@ public class PhotosFragment extends Fragment {
 					.getJSONObject(AppsConstants.KEY_FEED)
 					.getJSONArray(AppsConstants.KEY_ENTRIES);
 
-			
 			for (int i = 0; i < arrayEntries.length(); i++) {
 
-				//JSONObject aux = arrayEntries.getJSONArray(i).getJSONArray(0)
-					//	.getJSONObject(0);
-				System.out.println(arrayEntries.getJSONArray(i).getJSONArray(0));
-			//	System.out.println(aux.length());
-				
-			//	result.add(new PhotoBarcamp(aux.getString(AppsConstants.KEY_URL), aux.getString(AppsConstants.KEY_TITLE)));
-			
+				JSONObject contents = arrayEntries.getJSONObject(i)
+						.getJSONArray("mediaGroups").getJSONObject(0)
+						.getJSONArray("contents").getJSONObject(0);
+				result.add(new PhotoBarcamp(contents.getString("url"), contents
+						.getString("description")));
+				System.out.println(contents);
 			}
+
+			System.out.println(result);
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,4 +112,82 @@ public class PhotosFragment extends Fragment {
 		return result;
 	}
 
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mBitmap = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mBitmap = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mBitmap;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
+	}
+
+	static class ViewHolder {
+		TextView text;
+		ImageView icon;
+	}
+
+	class AdapterListPhotos extends BaseAdapter {
+
+
+		@Override
+		public int getCount() {
+
+			return photos.size();
+		}
+
+		@Override
+		public PhotoBarcamp getItem(int position) {
+			return photos.get(position);
+		}
+
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			ViewHolder holder;
+			if (convertView == null) {
+				convertView = mInflater.inflate(R.layout.photo_row, parent, false);
+				holder = new ViewHolder();
+
+				holder.text = (TextView) convertView
+						.findViewById(R.id.lab_title_photo);
+				holder.icon = (ImageView) convertView
+						.findViewById(R.id.img_photo);
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+
+			new DownloadImageTask(holder.icon).execute(photos.get(position)
+					.getPhotoURL());
+			holder.text.setText(photos.get(position).getPhotoTitle());
+
+			Log.d(AppsConstants.LOG_TAG, "on create de adapter");
+			return convertView;
+
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+	}
 }
