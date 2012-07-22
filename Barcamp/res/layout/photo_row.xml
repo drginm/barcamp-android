@@ -15,12 +15,12 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/lab_title_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/img_photo"
-        android:textColor="@android:color/white"
+        android:textColor="@color/blue"
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

@@ -32,7 +32,7 @@ public class HomeActivity extends FragmentActivity {
 		adapter.addFragment(new PlainFragment() );
 		adapter.addFragment(new PlainFragment() );
 		adapter.addFragment(new TwitterFeedFragment());
-		adapter.addFragment(new PlainFragment() );
+		adapter.addFragment(new PhotosFragment());
 		
 		pager.setAdapter(adapter);
 		

@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import com.orleonsoft.android.barcamp.network.AdapterListPhotos;
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.orleonsoft.android.barcamp.network.PhotoBarcamp;
-import com.orleonsoft.android.barcamp.network.TweetMessage;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -38,60 +36,65 @@ public class PhotosFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		if (!Utils.isNetworkAvailable(getActivity().getApplicationContext())) {
-			
+
 			Toast.makeText(getActivity().getBaseContext(),
 					"Error descando imagenes, no hay conexion a internet",
 					Toast.LENGTH_SHORT).show();
-		
 
 			photos = new ArrayList<PhotoBarcamp>();
 		} else {
-			
 
+			photos = new ArrayList<PhotoBarcamp>();
 		}
 
+		System.out.println(getListPhotos());
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment photos ");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		viewRoot = inflater.inflate(R.layout.photos_feed_screen, container);
-		
-		listPhotos=(ListView)viewRoot.findViewById(R.id.list_photo);
-		
-		adapterListPhotos= new AdapterListPhotos(getActivity(), android.R.layout.simple_list_item_1,photos);
-		
-		listPhotos.setAdapter(adapterListPhotos);
+		viewRoot = inflater.inflate(R.layout.photos_feed_screen, null);
+
+		// listPhotos=(ListView)viewRoot.findViewById(R.id.list_photo);
+
+		// adapterListPhotos= new AdapterListPhotos(getActivity(),
+		// android.R.layout.simple_list_item_1,photos);
+
+		// listPhotos.setAdapter(adapterListPhotos);
 
 		return viewRoot;
 	}
-	
-	public ArrayList<PhotoBarcamp> getListPhotos(){
-		
-		ArrayList<PhotoBarcamp> result= new ArrayList<PhotoBarcamp>();
+
+	public ArrayList<PhotoBarcamp> getListPhotos() {
+
+		ArrayList<PhotoBarcamp> result = new ArrayList<PhotoBarcamp>();
 		JSONObject object;
 		try {
-			object = JSONParser.getJSONObjectFromURL(AppsConstants.RSS_TO_JSON_SERVICE_URL
-					+ AppsConstants.PICASA_ALBUM_URL);
+			object = JSONParser
+					.getJSONObjectFromURL(AppsConstants.RSS_TO_JSON_SERVICE_URL
+							+ AppsConstants.PICASA_ALBUM_URL);
 
-			JSONArray arrayTweets = object
+			JSONArray arrayEntries = object
 					.getJSONObject(AppsConstants.KEY_RESPONSE)
 					.getJSONObject(AppsConstants.KEY_FEED)
 					.getJSONArray(AppsConstants.KEY_ENTRIES);
 
-			for (int i = 0; i < arrayTweets.length(); i++) {
-				JSONObject auxObject = arrayTweets.getJSONObject(i);
-				
+			
+			for (int i = 0; i < arrayEntries.length(); i++) {
 
+				JSONObject aux = arrayEntries.getJSONArray(i).getJSONArray(0)
+						.getJSONObject(0);
+				result.add(new PhotoBarcamp(aux.getString(AppsConstants.KEY_URL), aux.getString(AppsConstants.KEY_TITLE)));
+				
+				System.out.println(result.get(i));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
 		return result;
 	}
-	
+
 }
