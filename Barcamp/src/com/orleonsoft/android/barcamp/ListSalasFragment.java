@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Place;
@@ -26,9 +25,6 @@ public class ListSalasFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		new ConsultarSalasTask().execute();
-
 	}
 
 	@Override
@@ -36,13 +32,19 @@ public class ListSalasFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		mInflater = inflater;
 		View view = inflater.inflate(R.layout.salas_panel, container, false);
-		setListAdapter(mListAdapter);
+		mListSalas = new ArrayList<Place>();
+		setListAdapter(new SalasEfficientAdapter());
 		return view;
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
+	}
+
+	// carga los datos de las salas desde la db
+	public void cargarDatosSalas() {
+		new ConsultarSalasTask().execute();
 	}
 
 	// view holder
@@ -143,8 +145,9 @@ public class ListSalasFragment extends ListFragment {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			mProgressDialog.dismiss();
-			mListAdapter = new SalasEfficientAdapter();
-			setListAdapter(mListAdapter);
+			// mListAdapter = new SalasEfficientAdapter();
+			// setListAdapter(mListAdapter);
+			mListAdapter.notifyDataSetChanged();
 		}
 
 	}

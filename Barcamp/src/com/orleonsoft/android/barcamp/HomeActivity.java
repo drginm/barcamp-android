@@ -28,6 +28,7 @@ public class HomeActivity extends FragmentActivity {
 	ViewPager pager;
 	PagerAdapter adapter;
 	TitlePageIndicator titleIndicator;
+	private ListSalasFragment mListSalasFragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,9 @@ public class HomeActivity extends FragmentActivity {
 		}
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
+		mListSalasFragment = new ListSalasFragment();
 		adapter.addFragment(new PlainFragment());
-		adapter.addFragment(new ListSalasFragment());
+		adapter.addFragment(mListSalasFragment);
 		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PhotosFragment());
 
@@ -158,6 +160,7 @@ public class HomeActivity extends FragmentActivity {
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putBoolean("hayDatosDescargados", true);
 				editor.commit();
+				mListSalasFragment.cargarDatosSalas();
 			} else {
 				// si no hubo resultado, mostrar mensaje error
 			}
