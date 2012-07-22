@@ -83,11 +83,13 @@ public class PhotosFragment extends Fragment {
 			
 			for (int i = 0; i < arrayEntries.length(); i++) {
 
-				JSONObject aux = arrayEntries.getJSONArray(i).getJSONArray(0)
-						.getJSONObject(0);
-				result.add(new PhotoBarcamp(aux.getString(AppsConstants.KEY_URL), aux.getString(AppsConstants.KEY_TITLE)));
+				//JSONObject aux = arrayEntries.getJSONArray(i).getJSONArray(0)
+					//	.getJSONObject(0);
+				System.out.println(arrayEntries.getJSONArray(i).getJSONArray(0));
+			//	System.out.println(aux.length());
 				
-				System.out.println(result.get(i));
+			//	result.add(new PhotoBarcamp(aux.getString(AppsConstants.KEY_URL), aux.getString(AppsConstants.KEY_TITLE)));
+			
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

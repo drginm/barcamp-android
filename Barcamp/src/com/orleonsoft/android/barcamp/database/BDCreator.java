@@ -49,7 +49,7 @@ public class BDCreator extends SQLiteOpenHelper {
 						"StartTime"+" "+Database.TIMESTAMP_NOT_NULL+","+
 						"EndTime"+" "+Database.TIMESTAMP_NOT_NULL+","+
 						"ScheduleId"+" "+Database.INTEGER_NOT_NULL+","+
-						"Schedule"+" "+Database.TEXT_NOT_NULL+","+
+						"Schedule"+" "+Database.TEXT_NOT_NULL+
 						")");
 		
 	}
