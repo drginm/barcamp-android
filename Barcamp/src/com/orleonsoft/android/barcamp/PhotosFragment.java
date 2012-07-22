@@ -98,10 +98,8 @@ public class PhotosFragment extends Fragment {
 						.getJSONArray(AppsConstants.KEY_CONTENTS).getJSONObject(0);
 				result.add(new PhotoBarcamp(contents.getString(AppsConstants.KEY_URL), contents
 						.getString(AppsConstants.KEY_DESCRIPTION)));
-				System.out.println(contents);
-			}
-
-			System.out.println(result);
+				
+			}	
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
