@@ -27,7 +27,7 @@ public interface AppsConstants {
 	
 	String KEY_ENTRIES="entries";
 	String KEY_MEDIA_GROUPS="mediaGroups";
-	String KEY_TITLE="title";
+	String KEY_TITLE="description";
 	String KEY_URL="url";
 	String KEY_CONTENTS="contents";
 	String KEY_CONTENT="content";

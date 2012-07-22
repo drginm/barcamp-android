@@ -18,8 +18,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.viewpagerindicator.TitlePageIndicator;
@@ -39,13 +37,15 @@ public class HomeActivity extends FragmentActivity {
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
-		adapter.addFragment(new ListSalasFragment());
-		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PlainFragment());
+		adapter.addFragment(new PlainFragment());
+		adapter.addFragment(new TwitterFeedFragment());
+		adapter.addFragment(new PhotosFragment());
+		
 
 		pager.setAdapter(adapter);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-		titleIndicator.setViewPager(pager);
+		titleIndicator.setViewPager(pager,1);
 
 		SharedPreferences settings = getSharedPreferences("settings",
 				MODE_PRIVATE);
@@ -94,8 +94,8 @@ public class HomeActivity extends FragmentActivity {
 				for (int i = 0; i < salas.length(); i++) {
 					record = new ContentValues();
 					try {
-						record.put("Identifier", salas.getJSONObject(i)
-								.getString("_id"));
+						record.put("_id", salas.getJSONObject(i)
+								.getString("Identifier"));
 						record.put("Name",
 								salas.getJSONObject(i).getString("Name"));
 						record.put("Description", salas.getJSONObject(i)
@@ -115,7 +115,7 @@ public class HomeActivity extends FragmentActivity {
 				for (int i = 0; i < unconferences.length(); i++) {
 					record = new ContentValues();
 					try {
-						record.put("Identifier", unconferences.getJSONObject(i)
+						record.put("_id", unconferences.getJSONObject(i)
 								.getString("Identifier"));
 						record.put("Description", unconferences
 								.getJSONObject(i).getString("Description"));
