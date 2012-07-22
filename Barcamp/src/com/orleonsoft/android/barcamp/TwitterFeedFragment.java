@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 /**
  * Archivo: TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
+ * https://twitter.com/ingyesid Fecha:12/07/2012 Archivo:
+ * TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
  * https://twitter.com/ingyesid Fecha:12/07/2012
  */
 
