@@ -122,6 +122,7 @@ public class ListSalasFragment extends ListFragment {
 		@Override
 		protected Void doInBackground(Void... params) {
 			BDAdapter dbAdapter = new BDAdapter(getActivity());
+			dbAdapter.openDataBase();
 			Cursor cursor = dbAdapter.consultar(
 					AppsConstants.Database.NAME_TABLE_PLACE, null, null,
 					new String[] {}, null);
@@ -139,6 +140,7 @@ public class ListSalasFragment extends ListFragment {
 					} while (cursor.moveToNext());
 				}
 			}
+			dbAdapter.close();
 			return null;
 		}
 
