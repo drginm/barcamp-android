@@ -65,6 +65,47 @@ public class JSONParser {
 
 	}
 	
+	public static JSONObject getJSONFromURL(String url) throws IOException {
+		try {
+			// Building the request
+			AndroidHttpClient httpClient = AndroidHttpClient
+					.newInstance("Android");
+			URI uri = new URI(url);
+			HttpGet getRequest = new HttpGet();
+			getRequest.setURI(uri);
+			
+
+			// getting the response
+			HttpResponse httpResponse = httpClient.execute(getRequest);
+			
+
+			final int statusCode = httpResponse.getStatusLine().getStatusCode();
+
+			// check the response if it's ok
+			if (statusCode != HttpStatus.SC_OK) {
+				httpClient.close();
+				return new JSONObject();
+			}
+
+			final HttpEntity entity = httpResponse.getEntity();
+
+			String data = EntityUtils.toString(entity, HTTP.UTF_8);
+			entity.consumeContent();			
+			httpClient.close();
+			
+			return new JSONObject(data);
+		} catch (URISyntaxException e) {
+			throw new IOException("Error internet connection");
+		} catch (ClientProtocolException e) {
+			throw new ClientProtocolException("Protocol error");
+		} catch (IOException e) {
+			throw new IOException("Error IO"+e.getMessage());
+		} catch (JSONException e) {
+			throw new IOException("JSON Error");
+		}
+
+	}
+	
 	/**
 	 * hace una peticion http y lee la respuesta del servidor la convierte en un JSON
 	 * 

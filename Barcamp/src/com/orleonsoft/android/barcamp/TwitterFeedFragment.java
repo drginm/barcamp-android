@@ -1,5 +1,6 @@
 package com.orleonsoft.android.barcamp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,9 +22,7 @@ import android.widget.Toast;
 
 /**
  * Archivo: TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
- * https://twitter.com/ingyesid Fecha:12/07/2012 Archivo:
- * TwitterFeedActivity.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
- * https://twitter.com/ingyesid Fecha:12/07/2012
+ * https://twitter.com/ingyesid Fecha:12/07/2012 
  */
 
 public class TwitterFeedFragment extends Fragment {
@@ -79,7 +78,7 @@ public class TwitterFeedFragment extends Fragment {
 
 	public ArrayList<TweetMessage> getTimeLine() {
 		ArrayList<TweetMessage> result = new ArrayList<TweetMessage>();
-		JSONObject object;
+		JSONObject object = null;
 		try {
 			object = JSONParser.getJSONObjectFromURL(AppsConstants.RSS_TO_JSON_SERVICE_URL
 					+ AppsConstants.TWITTER_FEED_BARCAMP);

@@ -50,9 +50,9 @@ public class HomeActivity extends FragmentActivity {
 		SharedPreferences settings = getSharedPreferences("settings",
 				MODE_PRIVATE);
 
-		if (!settings.getBoolean("hayDatosDescargados", false)) {
-			new descargarConferenciasTask().execute();
-		}
+		//if (!settings.getBoolean("hayDatosDescargados", false)) {
+		//new descargarConferenciasTask().execute();
+		//}
 
 	}
 
