@@ -27,12 +27,6 @@ public class ListSalasFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (!Utils.isNetworkAvailable(getActivity().getApplicationContext())) {
-			Toast.makeText(getActivity().getApplicationContext(),
-					"Sin conexion a internet!", Toast.LENGTH_SHORT).show();
-			return;
-		}
-
 		new ConsultarSalasTask().execute();
 
 	}
@@ -72,7 +66,7 @@ public class ListSalasFragment extends ListFragment {
 
 		@Override
 		public long getItemId(int position) {
-			return position;
+			return mListSalas.get(position).getIdentifier();
 		}
 
 		@Override
