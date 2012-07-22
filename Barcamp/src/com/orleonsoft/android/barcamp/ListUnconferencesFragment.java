@@ -17,7 +17,7 @@ public class ListUnconferencesFragment extends ListFragment {
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
 	private long mIdPlace;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class ListUnconferencesFragment extends ListFragment {
 
 		@Override
 		public long getItemId(int position) {
-			return position;
+			return mListUnconferences.get(position).getIdentifier();
 		}
 
 		@Override
