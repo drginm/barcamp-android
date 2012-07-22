@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.orleonsoft.android.barcamp.network.PhotoBarcamp;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -55,15 +54,14 @@ public class PhotosFragment extends Fragment {
 		}
 
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment photos ");
-		
-		adapterListPhotos= new AdapterListPhotos();
+
+		adapterListPhotos = new AdapterListPhotos();
 	}
-	
+
 	@Override
 	public void onPause() {
 		super.onPause();
 	}
-
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,10 +93,10 @@ public class PhotosFragment extends Fragment {
 			for (int i = 0; i < arrayEntries.length(); i++) {
 
 				JSONObject contents = arrayEntries.getJSONObject(i)
-						.getJSONArray("mediaGroups").getJSONObject(0)
-						.getJSONArray("contents").getJSONObject(0);
-				result.add(new PhotoBarcamp(contents.getString("url"), contents
-						.getString("description")));
+						.getJSONArray(AppsConstants.KEY_MEDIA_GROUPS).getJSONObject(0)
+						.getJSONArray(AppsConstants.KEY_CONTENTS).getJSONObject(0);
+				result.add(new PhotoBarcamp(contents.getString(AppsConstants.KEY_URL), contents
+						.getString(AppsConstants.KEY_DESCRIPTION)));
 				System.out.println(contents);
 			}
 
@@ -144,7 +142,6 @@ public class PhotosFragment extends Fragment {
 
 	class AdapterListPhotos extends BaseAdapter {
 
-
 		@Override
 		public int getCount() {
 
@@ -156,13 +153,13 @@ public class PhotosFragment extends Fragment {
 			return photos.get(position);
 		}
 
-
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.photo_row, parent, false);
+				convertView = mInflater.inflate(R.layout.photo_row, parent,
+						false);
 				holder = new ViewHolder();
 
 				holder.text = (TextView) convertView
