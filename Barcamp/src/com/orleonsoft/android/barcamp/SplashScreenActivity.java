@@ -26,10 +26,6 @@ public class SplashScreenActivity extends Activity {
 
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
-				// crea la db por primera vez
-				BDAdapter dbAdapter = new BDAdapter(SplashScreenActivity.this);
-				dbAdapter.openDataBase();
-				dbAdapter.close();
 
 				Intent intent = new Intent(SplashScreenActivity.this,
 						com.orleonsoft.android.barcamp.HomeActivity.class);
