@@ -2,6 +2,7 @@ package com.orleonsoft.android.barcamp;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,6 +107,8 @@ public class PhotosFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Collections.reverse(result);
 
 		return result;
 	}
