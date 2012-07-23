@@ -133,6 +133,7 @@ public class ListSalasFragment extends ListFragment {
 			mListSalas = new ArrayList<Place>();
 
 			if (cursor != null) {
+				String now = Utils.nowDateTime();
 				if (cursor.moveToFirst()) {
 					do {
 						Place p = new Place();
@@ -140,9 +141,23 @@ public class ListSalasFragment extends ListFragment {
 						p.setName(cursor.getString(1));
 						p.setDescription(cursor.getString(2));
 						p.setImage(cursor.getString(3));
+						// consultar nombre siguiente unconference
+						Cursor cursorUn = dbAdapter.consultar(
+								AppsConstants.Database.NAME_TABLE_UNCONFERENCE,
+								new String[] { "Name" },
+								"Place = ? AND StartTime > ?", new String[] {
+										"" + p.getIdentifier(), now },
+								"StartTime ASC");
+						if (cursorUn != null) {
+							if (cursorUn.moveToFirst()) {
+								p.setNextUnconference(cursorUn.getString(0));
+								cursorUn.close();
+							}
+						}
 						mListSalas.add(p);
 					} while (cursor.moveToNext());
 				}
+				cursor.close();
 			}
 			dbAdapter.close();
 			return null;

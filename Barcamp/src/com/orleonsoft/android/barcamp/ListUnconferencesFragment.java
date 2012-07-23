@@ -132,6 +132,7 @@ public class ListUnconferencesFragment extends ListFragment {
 						mListUnconferences.add(u);
 					} while (cursor.moveToNext());
 				}
+				cursor.close();
 			}
 			dbAdapter.close();
 			return null;
