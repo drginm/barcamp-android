@@ -39,6 +39,15 @@ public class HomeActivity extends FragmentActivity {
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
 		mListSalasFragment = new ListSalasFragment();
+		
+
+		SharedPreferences settings = getSharedPreferences("settings",
+				MODE_PRIVATE);
+		
+		if (!settings.getBoolean("hayDatosDescargados", false)) {
+			new DescargarConferenciasTask().execute();
+		}
+		
 		adapter.addFragment(new PlainFragment());
 		adapter.addFragment(mListSalasFragment);
 		adapter.addFragment(new TwitterFeedFragment());
@@ -48,12 +57,8 @@ public class HomeActivity extends FragmentActivity {
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		titleIndicator.setViewPager(pager, 1);
 
-		SharedPreferences settings = getSharedPreferences("settings",
-				MODE_PRIVATE);
 
-		if (!settings.getBoolean("hayDatosDescargados", false)) {
-			new DescargarConferenciasTask().execute();
-		}
+		
 	}
 
 	private class DescargarConferenciasTask extends

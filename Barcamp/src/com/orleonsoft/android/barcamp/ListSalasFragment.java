@@ -145,9 +145,9 @@ public class ListSalasFragment extends ListFragment {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			mProgressDialog.dismiss();
-			// mListAdapter = new SalasEfficientAdapter();
-			// setListAdapter(mListAdapter);
-			mListAdapter.notifyDataSetChanged();
+			 mListAdapter = new SalasEfficientAdapter();
+			 setListAdapter(mListAdapter);
+			//mListAdapter.notifyDataSetChanged();
 		}
 
 	}
