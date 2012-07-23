@@ -2,6 +2,9 @@ package com.orleonsoft.android.barcamp;
 
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -10,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
 
 public class ListUnconferencesFragment extends ListFragment {
 
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
+	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
 
 	@Override
@@ -30,6 +35,8 @@ public class ListUnconferencesFragment extends ListFragment {
 		mInflater = inflater;
 		View view = inflater.inflate(R.layout.unconference_panel, container,
 				false);
+
+		new ConsultarUnconferencesTask().execute();
 		return view;
 	}
 
@@ -80,6 +87,61 @@ public class ListUnconferencesFragment extends ListFragment {
 			holder.speakers.setText(mListUnconferences.get(position)
 					.getSpeakers());
 			return convertView;
+		}
+
+	}
+
+	private class ConsultarUnconferencesTask extends
+			AsyncTask<Void, Void, Void> {
+
+		private ProgressDialog mProgressDialog;
+
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog.setCancelable(false);
+			mProgressDialog.setIndeterminate(true);
+			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			mProgressDialog.setMessage("Cargando datos...");
+			mProgressDialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			BDAdapter dbAdapter = new BDAdapter(getActivity());
+			dbAdapter.openDataBase();
+			Cursor cursor = dbAdapter.consultar(
+					AppsConstants.Database.NAME_TABLE_UNCONFERENCE, null,
+					"Place = ?", new String[] { mIdPlace + "" },
+					"StartTime ASC");
+			mListUnconferences = new ArrayList<Unconference>();
+			if (cursor != null) {
+				if (cursor.moveToFirst()) {
+					do {
+						Unconference u = new Unconference();
+						u.setIdentifier(cursor.getLong(0));
+						u.setName(cursor.getString(1));
+						u.setDescription(cursor.getString(2));
+						u.setPlace(cursor.getLong(3));
+						u.setKeywords(cursor.getString(4));
+						u.setSpeakers(cursor.getString(5));
+						u.setStartTime(cursor.getString(6));
+						u.setEndTime(cursor.getString(7));
+						u.setScheduleId(cursor.getLong(8));
+						u.setSchedule(cursor.getString(9));
+						mListUnconferences.add(u);
+					} while (cursor.moveToNext());
+				}
+			}
+			dbAdapter.close();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			mListAdapter = new UnconferencesEfficientAdapter();
+			setListAdapter(mListAdapter);
 		}
 
 	}

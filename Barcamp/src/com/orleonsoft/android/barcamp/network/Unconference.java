@@ -8,7 +8,7 @@ public class Unconference {
 	private String name;
 	private long place;
 	private String schedule;
-	private String scheduleId;
+	private Long scheduleId;
 	private String speakers;
 	private String startTime;
 
@@ -17,7 +17,7 @@ public class Unconference {
 
 	public Unconference(long identifier, String description, String endTime,
 			String keywords, String name, long place, String schedule,
-			String scheduleId, String speakers, String startTime) {
+			Long scheduleId, String speakers, String startTime) {
 		super();
 		this.identifier = identifier;
 		this.description = description;
@@ -87,11 +87,11 @@ public class Unconference {
 		this.schedule = schedule;
 	}
 
-	public String getScheduleId() {
+	public Long getScheduleId() {
 		return scheduleId;
 	}
 
-	public void setScheduleId(String scheduleId) {
+	public void setScheduleId(Long scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 
