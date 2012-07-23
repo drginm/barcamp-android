@@ -3,6 +3,8 @@ package com.orleonsoft.android.barcamp;
 import java.util.ArrayList;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,8 +34,13 @@ public class ListSalasFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		mInflater = inflater;
 		View view = inflater.inflate(R.layout.salas_panel, container, false);
-		mListSalas = new ArrayList<Place>();
-		setListAdapter(new SalasEfficientAdapter());
+
+		SharedPreferences settings = getActivity().getSharedPreferences(
+				"settings", Context.MODE_PRIVATE);
+		if (settings.getBoolean("hayDatosDescargados", false)) {
+			new ConsultarSalasTask().execute();
+		}
+
 		return view;
 	}
 
@@ -145,9 +152,8 @@ public class ListSalasFragment extends ListFragment {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			mProgressDialog.dismiss();
-			 mListAdapter = new SalasEfficientAdapter();
-			 setListAdapter(mListAdapter);
-			//mListAdapter.notifyDataSetChanged();
+			mListAdapter = new SalasEfficientAdapter();
+			setListAdapter(mListAdapter);
 		}
 
 	}
