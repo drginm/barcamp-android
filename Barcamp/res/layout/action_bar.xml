@@ -21,6 +21,16 @@
         android:layout_alignParentTop="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_action_about" />
+    
+    <ImageView
+        android:id="@+id/but_action_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/but_action_about"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_action_share" />
 
     <ImageView
         android:id="@+id/but_action_refresh"
@@ -28,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/but_action_about"
+        android:layout_toLeftOf="@+id/but_action_share"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_action_refresh" />
 
