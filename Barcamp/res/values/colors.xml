@@ -2,5 +2,6 @@
 <resources>
     <color name="blue">#00aeef</color>
      <color name="ligth_blue">#57CAF4</color>
+     <color name="pink">#C0C0C0</color>
     
 </resources>

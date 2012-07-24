@@ -43,7 +43,7 @@ public interface AppsConstants {
 
 		String NAME_TABLE_PLACE = "place";
 		String NAME_TABLE_UNCONFERENCE = "unconference";
-
+		String NAME_TABLE_FAVORITE = "favorite";
 		String _ID = "_id integer";
 
 		String PRIMARY_KEY = "PRIMARY KEY";
