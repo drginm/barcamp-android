@@ -97,7 +97,7 @@ public class ListUnconferencesActivity extends ListActivity {
 						.findViewById(R.id.lab_name_unconference);
 				holder.speakers = (TextView) convertView
 						.findViewById(R.id.lab_speakers);
-				holder.image = (ImageView) findViewById(R.id.img_favorite);
+				holder.image = (ImageView) convertView.findViewById(R.id.img_favorite);
 				holder.image.setTag(false);
 				holder.image.setOnClickListener(new OnClickListener() {
 

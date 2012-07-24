@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.Intent;
 /**
  *Archivo: Utils.java
  *Autor:Yesid Lazaro lazaro.yesid@gmail.com / https://twitter.com/ingyesid
@@ -86,6 +87,25 @@ public class Utils {
 	        alertBuilder.setMessage(text);
 	        alertBuilder.create().show();
 	    }
+	    
+	    /**
+		 * Abre un dialogo apra compartir sobre la aplicacion
+		 * @param ctx
+		 * @param subject
+		 * @param text
+		 */
+		public static void share(Context ctx, String subject, String text) {
+
+			 Intent intent = new Intent(Intent.ACTION_SEND);
+
+			intent.setType("text/plain");
+			intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+			intent.putExtra(Intent.EXTRA_TEXT, text);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);	
+			ctx.startActivity(Intent.createChooser(intent,
+					ctx.getString(R.string.tittle_share_app)));
+
+		}
 	    
 	
 	
