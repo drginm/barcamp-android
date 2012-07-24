@@ -9,45 +9,49 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Place;
 
-public class ListSalasFragment extends ListFragment {
+public class ListSalasFragment extends Fragment {
 
 	private LayoutInflater mInflater;
 	private SalasEfficientAdapter mListAdapter;
 	private ArrayList<Place> mListSalas;
-	
+	private ListView mListViewSalas;
+
 	public ListSalasFragment() {
 		// TODO Auto-generated constructor stub
 	}
-	 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	   
+
 	}
-	
+
 	@Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        setUserVisibleHint(true);
-    }
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		setUserVisibleHint(true);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mInflater = inflater;
 		View view = inflater.inflate(R.layout.salas_panel, container, false);
+
+		mListViewSalas = (ListView) view.findViewById(android.R.id.list);
 
 		SharedPreferences settings = getActivity().getSharedPreferences(
 				"settings", Context.MODE_PRIVATE);
@@ -57,8 +61,6 @@ public class ListSalasFragment extends ListFragment {
 
 		return view;
 	}
-
-
 
 	// carga los datos de las salas desde la db
 	public void cargarDatosSalas() {
@@ -189,8 +191,8 @@ public class ListSalasFragment extends ListFragment {
 			super.onPostExecute(result);
 			mProgressDialog.dismiss();
 			mListAdapter = new SalasEfficientAdapter();
-			setListAdapter(mListAdapter);
-			getListView().setOnItemClickListener(mListAdapter);
+			mListViewSalas.setAdapter(mListAdapter);
+			mListViewSalas.setOnItemClickListener(mListAdapter);
 		}
 
 	}
