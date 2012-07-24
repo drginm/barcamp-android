@@ -11,8 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.orleonsoft.android.barcamp.database.BDAdapter;
-
 /**
  * Splash de la aplicacion
  * 

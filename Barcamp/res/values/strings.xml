@@ -8,6 +8,21 @@
     <string name="title_fragment_programacion">Programación</string>
     <string name="title_fragment_favoritos">Favoritos</string>
     <string name="twitter_account">Barcamp_Med</string>
+  
     <string name="lab_programacion">Programaci\u00F3n</string>
+    <string name="lab_developers">Desarrollada por</string>
+    
+    <string name="web_orleonsoft">www.orleonsoft.com</string>
+     <string name="web_barcamp_med">www.barcampmedellin.org</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 </resources>

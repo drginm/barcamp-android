@@ -4,24 +4,48 @@
     android:layout_height="match_parent"
     android:background="@android:color/black" >
 
+    
+    
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/barcamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:contentDescription="@string/app_name"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/barcamp" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/developers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
+        android:layout_below="@+id/barcamp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/twitter_account"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginTop="20dp"
+        android:text="@string/lab_developers"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/blue" />
 
+    <ImageView
+        android:id="@+id/orleonsoft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/developers"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/orleonsoft" />
+
+    <TextView
+        android:id="@+id/web_orleonsoft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/orleonsoft"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
 </RelativeLayout>

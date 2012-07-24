@@ -47,7 +47,7 @@ public class Utils {
 	
 
 	/**
-	   * Este metodo retorna un String con la fecha actual en formato YYYY-MM-DD
+	   * Este metodo retorna un String con la fecha actual en formato YYYY-MM-DD 
 	   * @return String con fecha
 	   */
 	  public static String nowDateTime() {

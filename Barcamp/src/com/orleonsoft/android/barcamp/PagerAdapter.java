@@ -22,6 +22,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
 		return fragments.get(arg0);
 	}
 	
+	
+	
 	@Override
 	public CharSequence getPageTitle(int position) {
 		// TODO Auto-generated method stub
