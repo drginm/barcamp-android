@@ -45,7 +45,6 @@ public class HomeActivity extends FragmentActivity {
 		adapter.addFragment(new PhotosFragment());
 
 		pager.setAdapter(adapter);
-		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		titleIndicator.setViewPager(pager, 1);
 
 		SharedPreferences settings = getSharedPreferences("settings",
@@ -56,8 +55,7 @@ public class HomeActivity extends FragmentActivity {
 		}
 	}
 
-	private class DescargarDataTask extends
-			AsyncTask<Void, Void, Boolean> {
+	private class DescargarDataTask extends AsyncTask<Void, Void, Boolean> {
 
 		private ProgressDialog mProgressDialog;
 

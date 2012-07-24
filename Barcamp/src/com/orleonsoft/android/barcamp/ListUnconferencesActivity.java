@@ -2,21 +2,23 @@ package com.orleonsoft.android.barcamp;
 
 import java.util.ArrayList;
 
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
 
-public class ListUnconferencesFragment extends ListFragment {
+public class ListUnconferencesActivity extends ListActivity {
 
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
@@ -26,18 +28,14 @@ public class ListUnconferencesFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.unconference_screen);
 
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		mInflater = inflater;
-		View view = inflater.inflate(R.layout.unconference_panel, container,
-				false);
-
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			mIdPlace = (extras.getLong(AppsConstants.KEY_ID) != 0) ? extras
+					.getLong(AppsConstants.KEY_ID) : -1;
+		}
 		new ConsultarUnconferencesTask().execute();
-		return view;
 	}
 
 	// view holder
@@ -47,7 +45,8 @@ public class ListUnconferencesFragment extends ListFragment {
 	}
 
 	// adapter list
-	private class UnconferencesEfficientAdapter extends BaseAdapter {
+	private class UnconferencesEfficientAdapter extends BaseAdapter implements
+			OnItemClickListener {
 
 		@Override
 		public int getCount() {
@@ -89,6 +88,12 @@ public class ListUnconferencesFragment extends ListFragment {
 			return convertView;
 		}
 
+		@Override
+		public void onItemClick(AdapterView<?> adapter, View view,
+				int position, long id) {
+
+		}
+
 	}
 
 	private class ConsultarUnconferencesTask extends
@@ -98,7 +103,7 @@ public class ListUnconferencesFragment extends ListFragment {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog = new ProgressDialog(ListUnconferencesActivity.this);
 			mProgressDialog.setCancelable(false);
 			mProgressDialog.setIndeterminate(true);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -108,7 +113,7 @@ public class ListUnconferencesFragment extends ListFragment {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			BDAdapter dbAdapter = new BDAdapter(getActivity());
+			BDAdapter dbAdapter = new BDAdapter(ListUnconferencesActivity.this);
 			dbAdapter.openDataBase();
 			Cursor cursor = dbAdapter.consultar(
 					AppsConstants.Database.NAME_TABLE_UNCONFERENCE, null,

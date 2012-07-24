@@ -4,14 +4,19 @@ import java.util.ArrayList;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -61,7 +66,8 @@ public class ListSalasFragment extends ListFragment {
 	}
 
 	// adapter list
-	private class SalasEfficientAdapter extends BaseAdapter {
+	private class SalasEfficientAdapter extends BaseAdapter implements
+			OnItemClickListener {
 
 		@Override
 		public int getCount() {
@@ -105,6 +111,15 @@ public class ListSalasFragment extends ListFragment {
 					.getNextUnconference());
 
 			return convertView;
+		}
+
+		@Override
+		public void onItemClick(AdapterView<?> adapter, View view,
+				int position, long id) {
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), ListUnconferencesActivity.class);
+			intent.putExtra(AppsConstants.KEY_ID, id);
+			startActivity(intent);
 		}
 	}
 
