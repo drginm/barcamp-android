@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class ListUnconferencesActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
 		
+		mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {

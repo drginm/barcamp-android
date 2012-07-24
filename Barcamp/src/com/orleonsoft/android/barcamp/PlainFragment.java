@@ -30,7 +30,7 @@ public class PlainFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.color_layout, null); 
+		view = inflater.inflate(R.layout.acercade_screen, null); 
 		view.setBackgroundColor(Color.BLACK);
 		return view; 
 	}

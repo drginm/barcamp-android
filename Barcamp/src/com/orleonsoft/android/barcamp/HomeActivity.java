@@ -38,9 +38,11 @@ public class HomeActivity extends FragmentActivity {
 		setContentView(R.layout.home_screen);
 		pager = (ViewPager) findViewById(R.id.pager);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-
-		adapter = new PagerAdapter(getSupportFragmentManager());
+		
 		mListSalasFragment = new ListSalasFragment();
+		
+		adapter = new PagerAdapter(getSupportFragmentManager());
+		
 		adapter.addFragment(new PlainFragment());
 		adapter.addFragment(mListSalasFragment);
 		adapter.addFragment(new TwitterFeedFragment());

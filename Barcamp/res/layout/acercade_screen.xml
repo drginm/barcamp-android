@@ -4,14 +4,12 @@
     android:layout_height="match_parent"
     android:background="@android:color/black" >
 
-    
-    
     <ImageView
         android:id="@+id/barcamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/barcamp" />
@@ -24,9 +22,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="@string/lab_developers"
-        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/blue" />
+        android:textColor="@color/ligth_blue"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/orleonsoft"
@@ -44,8 +42,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/orleonsoft"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+        android:autoLink="web"
+        android:text="@string/web_orleonsoft"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColorLink="@color/blue" />
+
+    <TextView
+        android:id="@+id/web_barcamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:autoLink="web"
+        android:text="@string/web_barcamp_med"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColorLink="@color/blue" />
+
 </RelativeLayout>
