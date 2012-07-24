@@ -33,11 +33,13 @@ public class TwitterFeedFragment extends Fragment {
 	private AdapterListTweets adapterListTweets;
 
 	ArrayList<TweetMessage> timeLine;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		
 		if (!Utils.isNetworkAvailable(getActivity().getApplicationContext())) {
 			Toast.makeText(getActivity().getBaseContext(),
 					"Error cargando Tuits, no hay conexion a internet",
@@ -54,6 +56,12 @@ public class TwitterFeedFragment extends Fragment {
 
 		Log.d(AppsConstants.LOG_TAG, "OnCreate Fragment");
 	}
+	
+	@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        setUserVisibleHint(true);
+    }
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

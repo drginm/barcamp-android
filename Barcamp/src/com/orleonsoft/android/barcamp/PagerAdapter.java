@@ -6,8 +6,9 @@ import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class PagerAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter{
 
 	List<Fragment> fragments ;
 	public PagerAdapter(FragmentManager fm) {
@@ -21,9 +22,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int arg0) {
 		return fragments.get(arg0);
 	}
-	
-	
-	
+		
 	@Override
 	public CharSequence getPageTitle(int position) {
 		// TODO Auto-generated method stub

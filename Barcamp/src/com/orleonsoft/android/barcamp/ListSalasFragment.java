@@ -26,11 +26,22 @@ public class ListSalasFragment extends ListFragment {
 	private LayoutInflater mInflater;
 	private SalasEfficientAdapter mListAdapter;
 	private ArrayList<Place> mListSalas;
-
+	
+	public ListSalasFragment() {
+		// TODO Auto-generated constructor stub
+	}
+	 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	   
 	}
+	
+	@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        setUserVisibleHint(true);
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,10 +58,7 @@ public class ListSalasFragment extends ListFragment {
 		return view;
 	}
 
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
+
 
 	// carga los datos de las salas desde la db
 	public void cargarDatosSalas() {

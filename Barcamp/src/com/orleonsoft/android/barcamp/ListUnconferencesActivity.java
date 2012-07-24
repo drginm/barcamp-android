@@ -24,11 +24,16 @@ public class ListUnconferencesActivity extends ListActivity {
 	private ArrayList<Unconference> mListUnconferences;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
+	
+	public ListUnconferencesActivity() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
+		
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {

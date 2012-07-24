@@ -21,8 +21,11 @@ public class PlainFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	
-	
+	@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        setUserVisibleHint(true);
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

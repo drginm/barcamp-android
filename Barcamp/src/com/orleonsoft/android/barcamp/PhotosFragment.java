@@ -37,10 +37,18 @@ public class PhotosFragment extends Fragment {
 	private AdapterListPhotos adapterListPhotos;
 	LayoutInflater mInflater;
 	ArrayList<PhotoBarcamp> photos;
+	
+	
+	@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        setUserVisibleHint(true);
+    }
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 
 		if (!Utils.isNetworkAvailable(getActivity().getApplicationContext())) {
 
@@ -59,10 +67,7 @@ public class PhotosFragment extends Fragment {
 		adapterListPhotos = new AdapterListPhotos();
 	}
 
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

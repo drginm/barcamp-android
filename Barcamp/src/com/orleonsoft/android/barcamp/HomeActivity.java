@@ -29,6 +29,8 @@ public class HomeActivity extends FragmentActivity {
 	PagerAdapter adapter;
 	TitlePageIndicator titleIndicator;
 	private ListSalasFragment mListSalasFragment;
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
