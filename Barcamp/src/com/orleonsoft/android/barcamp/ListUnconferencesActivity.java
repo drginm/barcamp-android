@@ -6,14 +6,18 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
@@ -25,7 +29,7 @@ public class ListUnconferencesActivity extends ListActivity {
 	private ArrayList<Unconference> mListUnconferences;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
-	
+
 	public ListUnconferencesActivity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -34,8 +38,8 @@ public class ListUnconferencesActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
-		
-		mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -49,11 +53,20 @@ public class ListUnconferencesActivity extends ListActivity {
 	static class ViewHolder {
 		TextView nameUnconference;
 		TextView speakers;
+		ImageView image;
 	}
 
 	// adapter list
 	private class UnconferencesEfficientAdapter extends BaseAdapter implements
 			OnItemClickListener {
+
+		Bitmap unStar = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_unstar);
+		Bitmap star = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_star);
+
+		public UnconferencesEfficientAdapter() {
+		}
 
 		@Override
 		public int getCount() {
@@ -84,6 +97,36 @@ public class ListUnconferencesActivity extends ListActivity {
 						.findViewById(R.id.lab_name_unconference);
 				holder.speakers = (TextView) convertView
 						.findViewById(R.id.lab_speakers);
+				holder.image = (ImageView) findViewById(R.id.img_favorite);
+				holder.image.setTag(false);
+				holder.image.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(final View v) {
+						if ((Boolean) v.getTag()) {
+							ListUnconferencesActivity.this
+									.runOnUiThread(new Runnable() {
+										@Override
+										public void run() {
+											v.setTag(false);
+											((ImageView) v)
+													.setImageBitmap(unStar);
+										}
+									});
+
+						} else {
+							ListUnconferencesActivity.this
+									.runOnUiThread(new Runnable() {
+										@Override
+										public void run() {
+											v.setTag(true);
+											((ImageView) v)
+													.setImageBitmap(star);
+										}
+									});
+						}
+					}
+				});
 				convertView.setTag(holder);
 			}
 

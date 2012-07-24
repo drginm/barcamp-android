@@ -30,7 +30,6 @@ public class ListSalasFragment extends Fragment {
 	private ListView mListViewSalas;
 
 	public ListSalasFragment() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
