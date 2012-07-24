@@ -9,8 +9,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -184,6 +182,7 @@ public class ListSalasFragment extends ListFragment {
 			mProgressDialog.dismiss();
 			mListAdapter = new SalasEfficientAdapter();
 			setListAdapter(mListAdapter);
+			getListView().setOnItemClickListener(mListAdapter);
 		}
 
 	}
