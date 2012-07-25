@@ -271,6 +271,7 @@ public class ListUnconferencesActivity extends ListActivity {
 		long result = dbAdapter.delete(
 				AppsConstants.Database.NAME_TABLE_FAVORITE,
 				"id_unconference = ?", new String[] { "" + idUnconference });
+		dbAdapter.close();
 		return result != 0;
 	}
 }
