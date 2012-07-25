@@ -29,8 +29,6 @@ public class HomeActivity extends FragmentActivity {
 	PagerAdapter adapter;
 	TitlePageIndicator titleIndicator;
 	private ListSalasFragment mListSalasFragment;
-	
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,12 +36,12 @@ public class HomeActivity extends FragmentActivity {
 		setContentView(R.layout.home_screen);
 		pager = (ViewPager) findViewById(R.id.pager);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-		
+
 		mListSalasFragment = new ListSalasFragment();
-		
+
 		adapter = new PagerAdapter(getSupportFragmentManager());
-		
-		adapter.addFragment(new PlainFragment());
+
+		adapter.addFragment(new ListFavoritesFragment());
 		adapter.addFragment(mListSalasFragment);
 		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PhotosFragment());
