@@ -2,26 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="#1a1a1a"
-    android:padding="2dp" >
-    
+    android:background="#1a1a1a" >
+
     <ImageView
         android:id="@+id/ic_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/previous" />
-    
+        android:src="@drawable/previous"
+        android:visibility="gone" />
 
     <ImageView
+        android:padding="5dp"
         android:id="@+id/ic_app_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_toRightOf="@+id/ic_previous"
         android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ic_previous"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_launcher" />
 
@@ -30,7 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/selector_action_about" />
 
@@ -38,20 +38,13 @@
         android:id="@+id/but_action_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
+        android:layout_alignBaseline="@+id/but_action_about"
         android:layout_toLeftOf="@+id/but_action_about"
         android:contentDescription="@string/app_name"
         android:src="@drawable/selector_action_share" />
 
-    <ImageView
-        android:id="@+id/but_action_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/but_action_share"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/selector_action_refresh" />
+   
 
 </RelativeLayout>

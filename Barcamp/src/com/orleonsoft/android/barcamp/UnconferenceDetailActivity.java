@@ -1,16 +1,19 @@
 package com.orleonsoft.android.barcamp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
 
-public class UnconferenceDetailActivity extends Activity {
+public class UnconferenceDetailActivity extends Activity  implements OnClickListener{
 
 	private Unconference mUnconference;
 	private TextView mLabNameUnconference;
@@ -20,6 +23,11 @@ public class UnconferenceDetailActivity extends Activity {
 	private TextView mLabKeyWords;
 	private ImageView mImgFavorite;
 	private boolean esFavorito;
+	
+	ImageView butActionShare;
+	ImageView butActionAbout;
+	ImageView butPrevious;
+	ImageView butHome;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,17 @@ public class UnconferenceDetailActivity extends Activity {
 		mLabSpeakers = (TextView) findViewById(R.id.lab_speakers);
 		mLabKeyWords = (TextView) findViewById(R.id.lab_keywords);
 		mImgFavorite = (ImageView) findViewById(R.id.img_favorite);
+		
+		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
+		butActionShare=(ImageView)findViewById(R.id.but_action_share);
+		butHome=(ImageView)findViewById(R.id.ic_app_icon);
+		butPrevious=(ImageView)findViewById(R.id.ic_previous);
+		butPrevious.setVisibility(View.VISIBLE);
+		
+		butActionAbout.setOnClickListener(this);
+		butHome.setOnClickListener(this);
+		butActionShare.setOnClickListener(this);
+		butPrevious.setOnClickListener(this);
 
 		mUnconference = new Unconference();
 		Bundle extras = getIntent().getExtras();
@@ -78,6 +97,35 @@ public class UnconferenceDetailActivity extends Activity {
 			mImgFavorite.setImageBitmap(BitmapFactory.decodeResource(
 					getResources(), R.drawable.ic_unfavorite));
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.but_action_about:
+			startActivity(new Intent(UnconferenceDetailActivity.this, AcercaDeActivity.class));
+			break;
+			
+		case R.id.but_action_share:
+			Utils.share(UnconferenceDetailActivity.this, "Barcamp Med", "Descarga ya la aplicaci—n de Barcamp");
+			break;
+			
+		case R.id.ic_app_icon:
+			Intent intent = new Intent(this,HomeActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		       startActivity(intent);
+			break;
+			
+		case R.id.ic_previous:
+			Intent intentHome= new Intent(this,HomeActivity.class);
+			intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		       startActivity(intentHome);
+			break;
+
+		default:
+			break;
+		}
+		
 	}
 
 }

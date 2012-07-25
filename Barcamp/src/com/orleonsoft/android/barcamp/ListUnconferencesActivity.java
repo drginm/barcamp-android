@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
 
-public class ListUnconferencesActivity extends ListActivity {
+public class ListUnconferencesActivity extends ListActivity implements OnClickListener{
 
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
@@ -34,6 +34,11 @@ public class ListUnconferencesActivity extends ListActivity {
 	private TextView mLabNamePlace;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
+	
+	ImageView butActionShare;
+	ImageView butActionAbout;
+	ImageView butPrevious;
+	ImageView butHome;
 
 	public ListUnconferencesActivity() {
 		// TODO Auto-generated constructor stub
@@ -43,6 +48,17 @@ public class ListUnconferencesActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
+		
+		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
+		butActionShare=(ImageView)findViewById(R.id.but_action_share);
+		butHome=(ImageView)findViewById(R.id.ic_app_icon);
+		butPrevious=(ImageView)findViewById(R.id.ic_previous);
+		butPrevious.setVisibility(View.VISIBLE);
+		
+		butActionAbout.setOnClickListener(this);
+		butHome.setOnClickListener(this);
+		butActionShare.setOnClickListener(this);
+		butPrevious.setOnClickListener(this);
 
 		mLabNamePlace = (TextView) findViewById(R.id.lab_name_place);
 
@@ -277,5 +293,35 @@ public class ListUnconferencesActivity extends ListActivity {
 				"id_unconference = ?", new String[] { "" + idUnconference });
 		dbAdapter.close();
 		return result != 0;
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.but_action_about:
+			startActivity(new Intent(ListUnconferencesActivity.this, AcercaDeActivity.class));
+			break;
+			
+		case R.id.but_action_share:
+			Utils.share(ListUnconferencesActivity.this, "Barcamp Med", "Descarga ya la aplicaci—n de Barcamp");
+			break;
+			
+		case R.id.ic_app_icon:
+			Intent intent = new Intent(this,HomeActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		       startActivity(intent);
+			break;
+			
+		case R.id.ic_previous:
+			Intent intentHome= new Intent(this,HomeActivity.class);
+			intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		       startActivity(intentHome);
+			break;
+
+
+		default:
+			break;
+		}
+		
 	}
 }
