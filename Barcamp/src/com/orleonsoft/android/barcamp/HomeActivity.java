@@ -57,7 +57,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
 
-		//adapter.addFragment(new ListFavoritesFragment());
+		adapter.addFragment(new ListFavoritesFragment());
 		adapter.addFragment(mListSalasFragment);
 		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PhotosFragment());

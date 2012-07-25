@@ -106,6 +106,9 @@ public class ListFavoritesFragment extends Fragment {
 					.getName());
 			holder.place
 					.setText(mListUnconference.get(position).getNamePlace());
+			
+			holder.hour
+			.setText(mListUnconference.get(position).getSchedule());
 			return convertView;
 		}
 

@@ -54,12 +54,14 @@ public class UnconferenceDetailActivity extends Activity {
 					AppsConstants.Database.NAME_TABLE_PLACE,
 					new String[] { "Name" }, "_id = ?",
 					new String[] { mUnconference.getPlace() + "" }, null);
-			dbAdapter.close();
+			
 			if (cursor != null) {
 				if (cursor.moveToFirst()) {
 					mUnconference.setNamePlace(cursor.getString(0));
 				}
 			}
+			
+			dbAdapter.close();
 
 		}
 
@@ -71,10 +73,10 @@ public class UnconferenceDetailActivity extends Activity {
 		mLabKeyWords.setText(mUnconference.getKeywords());
 		if (esFavorito) {
 			mImgFavorite.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.ic_star));
+					getResources(), R.drawable.ic_favorite));
 		} else {
 			mImgFavorite.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.ic_unstar));
+					getResources(), R.drawable.ic_unfavorite));
 		}
 	}
 
