@@ -27,10 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ListUnconferencesActivity" android:theme="@android:style/Theme.NoTitleBar"></activity>
-          <activity android:name="UnconferenceDetailActivity" android:theme="@android:style/Theme.NoTitleBar"></activity>
-        
-        
+        <activity
+            android:name="ListUnconferencesActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="UnconferenceDetailActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="AcercaDeActivity"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>

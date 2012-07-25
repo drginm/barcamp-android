@@ -2,13 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.orleonsoft.android.barcamp">
 
+    <include 
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar"
+        android:layout_alignParentTop="true"
+        />
  
     <com.viewpagerindicator.TitlePageIndicator
         android:id="@+id/titles"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"/>
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/action_bar"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
