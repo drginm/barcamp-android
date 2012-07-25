@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
       	android:contentDescription="@string/app_name"
       	android:layout_below="@+id/lab_title_photo"
-      	android:src="@drawable/ic_launcher"
+      	android:src="@drawable/loading"
         android:adjustViewBounds="true"
         />
 
