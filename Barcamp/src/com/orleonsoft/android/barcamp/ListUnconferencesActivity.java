@@ -31,7 +31,7 @@ public class ListUnconferencesActivity extends ListActivity {
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
 	private HashMap<Long, Long> mFavoritosMap;
-
+	private TextView mLabNamePlace;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
 
@@ -44,6 +44,8 @@ public class ListUnconferencesActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
 
+		mLabNamePlace = (TextView) findViewById(R.id.lab_name_place);
+
 		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mFavoritosMap = new HashMap<Long, Long>();
 
@@ -51,6 +53,7 @@ public class ListUnconferencesActivity extends ListActivity {
 		if (extras != null) {
 			mIdPlace = (extras.getLong(AppsConstants.KEY_ID) != 0) ? extras
 					.getLong(AppsConstants.KEY_ID) : -1;
+			mLabNamePlace.setText(extras.getString("name_place"));
 		}
 		new ConsultarUnconferencesTask().execute();
 	}
@@ -66,10 +69,10 @@ public class ListUnconferencesActivity extends ListActivity {
 	private class UnconferencesEfficientAdapter extends BaseAdapter implements
 			OnItemClickListener {
 
-		Bitmap unStar = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ic_unstar);
-		Bitmap star = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ic_star);
+		Bitmap unFavorite = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_unfavorite);
+		Bitmap favorite = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_favorite);
 
 		public UnconferencesEfficientAdapter() {
 		}
@@ -117,7 +120,7 @@ public class ListUnconferencesActivity extends ListActivity {
 										public void run() {
 											v.setTag(false);
 											((ImageView) v)
-													.setImageBitmap(unStar);
+													.setImageBitmap(unFavorite);
 											long idUnconference = getItemId(pos);
 											if (borrarFavorito(idUnconference)) {
 												mFavoritosMap
@@ -133,7 +136,7 @@ public class ListUnconferencesActivity extends ListActivity {
 										public void run() {
 											v.setTag(true);
 											((ImageView) v)
-													.setImageBitmap(star);
+													.setImageBitmap(favorite);
 											long idUnconference = getItemId(pos);
 											long idFavorito = insertarFavorito(idUnconference);
 											if (idFavorito != -1) {
@@ -150,7 +153,7 @@ public class ListUnconferencesActivity extends ListActivity {
 				// actualiza el estado del boton favorito de cada row
 				final boolean esFavorito = mFavoritosMap
 						.containsKey(getItemId(pos));
-				holder.image.setImageBitmap(esFavorito ? star : unStar);
+				holder.image.setImageBitmap(esFavorito ? favorite : unFavorite);
 				holder.image.setTag(esFavorito);
 
 				convertView.setTag(holder);
@@ -250,7 +253,8 @@ public class ListUnconferencesActivity extends ListActivity {
 			mProgressDialog.dismiss();
 			mListAdapter = new UnconferencesEfficientAdapter();
 			setListAdapter(mListAdapter);
-		}
+			getListView().setOnItemClickListener(mListAdapter);
+		};
 
 	}
 

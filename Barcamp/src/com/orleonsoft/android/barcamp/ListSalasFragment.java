@@ -126,6 +126,7 @@ public class ListSalasFragment extends Fragment {
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), ListUnconferencesActivity.class);
 			intent.putExtra(AppsConstants.KEY_ID, id);
+			intent.putExtra("name_place", mListSalas.get(position).getName());
 			startActivity(intent);
 		}
 	}

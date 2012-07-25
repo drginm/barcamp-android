@@ -32,6 +32,6 @@
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_unstar" />
+        android:src="@drawable/ic_favorite" />
 
 </RelativeLayout>
