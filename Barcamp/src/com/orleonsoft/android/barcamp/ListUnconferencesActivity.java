@@ -1,10 +1,13 @@
 package com.orleonsoft.android.barcamp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +30,8 @@ public class ListUnconferencesActivity extends ListActivity {
 
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
+	private HashMap<Long, Long> mFavoritosMap;
+
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
 
@@ -40,6 +45,7 @@ public class ListUnconferencesActivity extends ListActivity {
 		setContentView(R.layout.unconference_screen);
 
 		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mFavoritosMap = new HashMap<Long, Long>();
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -89,6 +95,7 @@ public class ListUnconferencesActivity extends ListActivity {
 			// unneccessary calls
 			// to findViewById() on each row.
 			ViewHolder holder;
+			final int pos = position;
 			if (convertView == null) {
 				convertView = mInflater
 						.inflate(R.layout.unconference_row, null);
@@ -97,8 +104,8 @@ public class ListUnconferencesActivity extends ListActivity {
 						.findViewById(R.id.lab_name_unconference);
 				holder.speakers = (TextView) convertView
 						.findViewById(R.id.lab_speakers);
-				holder.image = (ImageView) convertView.findViewById(R.id.img_favorite);
-				holder.image.setTag(false);
+				holder.image = (ImageView) convertView
+						.findViewById(R.id.img_favorite);
 				holder.image.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -111,6 +118,11 @@ public class ListUnconferencesActivity extends ListActivity {
 											v.setTag(false);
 											((ImageView) v)
 													.setImageBitmap(unStar);
+											long idUnconference = getItemId(pos);
+											if (borrarFavorito(idUnconference)) {
+												mFavoritosMap
+														.remove(idUnconference);
+											}
 										}
 									});
 
@@ -122,11 +134,25 @@ public class ListUnconferencesActivity extends ListActivity {
 											v.setTag(true);
 											((ImageView) v)
 													.setImageBitmap(star);
+											long idUnconference = getItemId(pos);
+											long idFavorito = insertarFavorito(idUnconference);
+											if (idFavorito != -1) {
+												mFavoritosMap.put(
+														idUnconference,
+														idFavorito);
+											}
 										}
 									});
 						}
 					}
 				});
+
+				// actualiza el estado del boton favorito de cada row
+				final boolean esFavorito = mFavoritosMap
+						.containsKey(getItemId(pos));
+				holder.image.setImageBitmap(esFavorito ? star : unStar);
+				holder.image.setTag(esFavorito);
+
 				convertView.setTag(holder);
 			}
 
@@ -141,9 +167,23 @@ public class ListUnconferencesActivity extends ListActivity {
 		@Override
 		public void onItemClick(AdapterView<?> adapter, View view,
 				int position, long id) {
-
+			Intent intent = new Intent();
+			intent.setClass(ListUnconferencesActivity.this,
+					UnconferenceDetailActivity.class);
+			Unconference u = (Unconference) getItem(position);
+			intent.putExtra("_id", u.getIdentifier());
+			intent.putExtra("Name", u.getName());
+			intent.putExtra("Description", u.getDescription());
+			intent.putExtra("Place", u.getPlace());
+			intent.putExtra("Keywords", u.getKeywords());
+			intent.putExtra("Speakers", u.getSpeakers());
+			intent.putExtra("StarTime", u.getStartTime());
+			intent.putExtra("EndTiem", u.getEndTime());
+			intent.putExtra("ScheduleId", u.getScheduleId());
+			intent.putExtra("Schedule", u.getSchedule());
+			intent.putExtra("esFavorito", mFavoritosMap.containsKey(id));
+			startActivity(intent);
 		}
-
 	}
 
 	private class ConsultarUnconferencesTask extends
@@ -171,6 +211,18 @@ public class ListUnconferencesActivity extends ListActivity {
 					"StartTime ASC");
 			mListUnconferences = new ArrayList<Unconference>();
 			if (cursor != null) {
+				Cursor favoritas = dbAdapter.consultar(
+						AppsConstants.Database.NAME_TABLE_FAVORITE, null, null,
+						new String[] {}, null);
+				if (favoritas != null) {
+					if (favoritas.moveToFirst()) {
+						do {
+							mFavoritosMap.put(favoritas.getLong(1),
+									favoritas.getLong(0));
+						} while (favoritas.moveToNext());
+					}
+					favoritas.close();
+				}
 				if (cursor.moveToFirst()) {
 					do {
 						Unconference u = new Unconference();
@@ -200,5 +252,25 @@ public class ListUnconferencesActivity extends ListActivity {
 			setListAdapter(mListAdapter);
 		}
 
+	}
+
+	public long insertarFavorito(long idUnconference) {
+		BDAdapter dbAdapter = new BDAdapter(ListUnconferencesActivity.this);
+		dbAdapter.openDataBase();
+		ContentValues values = new ContentValues();
+		values.put("id_unconference", idUnconference);
+		long result = dbAdapter.insert(
+				AppsConstants.Database.NAME_TABLE_FAVORITE, values);
+		dbAdapter.close();
+		return result;
+	}
+
+	public boolean borrarFavorito(long idUnconference) {
+		BDAdapter dbAdapter = new BDAdapter(ListUnconferencesActivity.this);
+		dbAdapter.openDataBase();
+		long result = dbAdapter.delete(
+				AppsConstants.Database.NAME_TABLE_FAVORITE,
+				"id_unconference = ?", new String[] { "" + idUnconference });
+		return result != 0;
 	}
 }

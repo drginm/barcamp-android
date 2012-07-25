@@ -3,46 +3,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    android:padding="5dp" >
+    android:padding="16dp" >
 
     <TextView
         android:id="@+id/lab_name_unconference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
         android:text="@string/app_name"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/lab_name_unconference"
+        android:layout_gravity="center_vertical"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_unstar" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/img_favorite"
+        android:layout_marginTop="2dp"
+        android:background="@color/ligth_blue" />
 
     <TextView
         android:id="@+id/lab_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lab_name_unconference"
-        android:layout_below="@+id/lab_name_unconference"
-        android:textColor="@color/blue"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="4dp"
         android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textColor="@color/blue"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/lab_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lab_schedule"
         android:layout_below="@+id/lab_schedule"
+        android:layout_marginTop="4dp"
         android:gravity="left"
         android:text="@string/lab_programacion"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/lab_speakers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lab_description"
+        android:layout_marginTop="4dp"
+        android:text="@string/title_activity_home"
+        android:textColor="@color/blue"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/lab_keywords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lab_description"
-        android:layout_below="@+id/lab_description"
-        android:textColor="@color/blue"
+        android:layout_below="@+id/lab_speakers"
+        android:layout_marginTop="4dp"
         android:text="@string/title_activity_home"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textColor="@color/blue"
+        android:textSize="14sp" />
 
 </RelativeLayout>

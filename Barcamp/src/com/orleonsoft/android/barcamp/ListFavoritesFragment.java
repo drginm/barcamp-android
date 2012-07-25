@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -111,7 +112,21 @@ public class ListFavoritesFragment extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> adapter, View view,
 				int position, long id) {
-
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), UnconferenceDetailActivity.class);
+			Unconference u = (Unconference) getItem(position);
+			intent.putExtra("_id", u.getIdentifier());
+			intent.putExtra("Name", u.getName());
+			intent.putExtra("Description", u.getDescription());
+			intent.putExtra("Place", u.getPlace());
+			intent.putExtra("Keywords", u.getKeywords());
+			intent.putExtra("Speakers", u.getSpeakers());
+			intent.putExtra("StarTime", u.getStartTime());
+			intent.putExtra("EndTiem", u.getEndTime());
+			intent.putExtra("ScheduleId", u.getScheduleId());
+			intent.putExtra("Schedule", u.getSchedule());
+			intent.putExtra("esFavorito", true);
+			startActivity(intent);
 		}
 	}
 
@@ -133,8 +148,9 @@ public class ListFavoritesFragment extends Fragment {
 		protected void onPostExecute(Cursor result) {
 			super.onPostExecute(result);
 			if (result != null && result.getCount() > 0) {
-				// verifica si la lista de favoritos ha cambiado con respecto a
-				// la lista de favoritos actual
+				// verifica si la lista de favoritos en la db ha cambiado con
+				// respecto a
+				// la lista de favoritos de la vista
 				if (result.getCount() != mListUnconference.size()) {
 					new ConsultarUnconferencesFavoritasTask().execute(result);
 				}
