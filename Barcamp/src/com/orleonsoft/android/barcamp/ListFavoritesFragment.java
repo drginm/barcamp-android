@@ -131,29 +131,40 @@ public class ListFavoritesFragment extends Fragment {
 	}
 
 	// consultar los favoritos
-	private class ConsultarFavoritosTask extends AsyncTask<Void, Void, Cursor> {
+	private class ConsultarFavoritosTask extends
+			AsyncTask<Void, Void, ArrayList<String>> {
 
 		@Override
-		protected Cursor doInBackground(Void... params) {
+		protected ArrayList<String> doInBackground(Void... params) {
 			BDAdapter dbAdapter = new BDAdapter(getActivity());
 			dbAdapter.openDataBase();
-			Cursor favoritos = dbAdapter.consultar(
+			Cursor cursor = dbAdapter.consultar(
 					AppsConstants.Database.NAME_TABLE_FAVORITE, null, null,
 					new String[] {}, null);
+			ArrayList<String> favoritos = new ArrayList<String>();
+			if (cursor != null && cursor.getCount() > 0) {
+				// verifica si la lista de favoritos en la db ha cambiado con
+				// respecto a
+				// la lista de favoritos de la vista
+				if (cursor.getCount() != mListUnconference.size()) {
+
+					if (cursor.moveToFirst()) {
+						do {
+							favoritos.add(cursor.getString(1));
+						} while (cursor.moveToNext());
+					}
+
+				}
+			}
 			dbAdapter.close();
 			return favoritos;
 		}
 
 		@Override
-		protected void onPostExecute(Cursor result) {
+		protected void onPostExecute(ArrayList<String> result) {
 			super.onPostExecute(result);
-			if (result != null && result.getCount() > 0) {
-				// verifica si la lista de favoritos en la db ha cambiado con
-				// respecto a
-				// la lista de favoritos de la vista
-				if (result.getCount() != mListUnconference.size()) {
-					new ConsultarUnconferencesFavoritasTask().execute(result);
-				}
+			if (!result.isEmpty()) {
+				new ConsultarUnconferencesFavoritasTask().execute(result);
 			}
 		}
 
@@ -161,7 +172,7 @@ public class ListFavoritesFragment extends Fragment {
 
 	// consultar unconferences favoritas
 	private class ConsultarUnconferencesFavoritasTask extends
-			AsyncTask<Cursor, Void, Void> {
+			AsyncTask<ArrayList<String>, Void, Void> {
 
 		private ProgressDialog mProgressDialog;
 
@@ -177,11 +188,11 @@ public class ListFavoritesFragment extends Fragment {
 		}
 
 		@Override
-		protected Void doInBackground(Cursor... params) {
+		protected Void doInBackground(ArrayList<String>... params) {
 			BDAdapter dbAdapter = new BDAdapter(getActivity());
 			dbAdapter.openDataBase();
-			Cursor favoritos = params[0];
-			if (favoritos != null) {
+			ArrayList<String> favoritos = params[0];
+			if (!favoritos.isEmpty()) {
 				// Consultar todos los places
 				Cursor places = dbAdapter.consultar(
 						AppsConstants.Database.NAME_TABLE_PLACE, null, null,
@@ -198,35 +209,31 @@ public class ListFavoritesFragment extends Fragment {
 				}
 				// limpia la lista actual de unconferences favoritas
 				mListUnconference = new ArrayList<Unconference>();
-				if (favoritos.moveToFirst()) {
-					do {
-						String id_unconference = favoritos.getString(1);
-						Cursor unconference = dbAdapter.consultar(
-								AppsConstants.Database.NAME_TABLE_UNCONFERENCE,
-								null, "_id = ?",
-								new String[] { id_unconference }, null);
-						if (unconference != null) {
-							if (unconference.moveToFirst()) {
-								Unconference u = new Unconference();
-								u.setIdentifier(unconference.getLong(0));
-								u.setName(unconference.getString(1));
-								u.setDescription(unconference.getString(2));
-								u.setPlace(unconference.getLong(3));
-								u.setKeywords(unconference.getString(4));
-								u.setSpeakers(unconference.getString(5));
-								u.setStartTime(unconference.getString(6));
-								u.setEndTime(unconference.getString(7));
-								u.setScheduleId(unconference.getLong(8));
-								u.setSchedule(unconference.getString(9));
-								// busca en el mapa el nombre del place
-								u.setNamePlace(placesMap.get(u.getPlace()));
-								mListUnconference.add(u);
-							}
-							unconference.close();
+				for (int i = 0; i < favoritos.size(); i++) {
+					Cursor unconference = dbAdapter.consultar(
+							AppsConstants.Database.NAME_TABLE_UNCONFERENCE,
+							null, "_id = ?", new String[] { favoritos.get(i) },
+							null);
+					if (unconference != null) {
+						if (unconference.moveToFirst()) {
+							Unconference u = new Unconference();
+							u.setIdentifier(unconference.getLong(0));
+							u.setName(unconference.getString(1));
+							u.setDescription(unconference.getString(2));
+							u.setPlace(unconference.getLong(3));
+							u.setKeywords(unconference.getString(4));
+							u.setSpeakers(unconference.getString(5));
+							u.setStartTime(unconference.getString(6));
+							u.setEndTime(unconference.getString(7));
+							u.setScheduleId(unconference.getLong(8));
+							u.setSchedule(unconference.getString(9));
+							// busca en el mapa el nombre del place
+							u.setNamePlace(placesMap.get(u.getPlace()));
+							mListUnconference.add(u);
 						}
-					} while (favoritos.moveToNext());
+						unconference.close();
+					}
 				}
-				favoritos.close();
 			}
 			dbAdapter.close();
 			return null;
