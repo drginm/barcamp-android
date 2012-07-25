@@ -19,7 +19,7 @@
         android:id="@+id/lab_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+   		android:layout_alignBaseline="@+id/lab_hour"
         android:layout_alignParentRight="true"
         android:text="@string/app_name"
         android:textColor="@color/pink"
@@ -29,8 +29,8 @@
         android:id="@+id/lab_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lab_name_unconference"
         android:text="@string/app_name"
         android:textColor="@color/blue"
         android:textSize="14sp" />

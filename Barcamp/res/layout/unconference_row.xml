@@ -11,9 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:layout_toLeftOf="@+id/img_favorite"
+        android:layout_alignParentLeft="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
+    
+    <ImageView
+        android:id="@+id/img_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_favorite" />
 
     <TextView
         android:id="@+id/lab_speakers"
@@ -24,14 +37,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/blue" />
 
-    <ImageView
-        android:id="@+id/img_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_favorite" />
+    
 
 </RelativeLayout>
