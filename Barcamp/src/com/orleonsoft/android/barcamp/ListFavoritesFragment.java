@@ -26,7 +26,7 @@ public class ListFavoritesFragment extends Fragment {
 	private LayoutInflater mInflater;
 	private FavoritesEfficientAdapter mListAdapter;
 	private ArrayList<Unconference> mListUnconference;
-	private ListView mListViewSalas;
+	private ListView mListViewFavoritos;
 
 	public ListFavoritesFragment() {
 		mListUnconference = new ArrayList<Unconference>();
@@ -44,10 +44,16 @@ public class ListFavoritesFragment extends Fragment {
 		mInflater = inflater;
 		View view = inflater
 				.inflate(R.layout.favorites_panel, container, false);
-		mListViewSalas = (ListView) view.findViewById(android.R.id.list);
-		mListViewSalas.setAdapter(mListAdapter);
-		new ConsultarFavoritosTask().execute();
+		mListViewFavoritos = (ListView) view.findViewById(android.R.id.list);
+		mListViewFavoritos.setAdapter(mListAdapter);
+		mListViewFavoritos.setOnItemClickListener(mListAdapter);
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		new ConsultarFavoritosTask().execute();
 	}
 
 	@Override
