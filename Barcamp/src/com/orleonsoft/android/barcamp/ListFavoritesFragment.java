@@ -227,9 +227,8 @@ public class ListFavoritesFragment extends Fragment {
 					} while (favoritos.moveToNext());
 				}
 				favoritos.close();
-				dbAdapter.close();
 			}
-
+			dbAdapter.close();
 			return null;
 		}
 
