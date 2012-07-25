@@ -107,7 +107,7 @@ public class UnconferenceDetailActivity extends Activity  implements OnClickList
 			break;
 			
 		case R.id.but_action_share:
-			Utils.share(UnconferenceDetailActivity.this, "Barcamp Med", "Descarga ya la aplicaci—n de Barcamp");
+			Utils.share(UnconferenceDetailActivity.this, AppsConstants.SHARE_SUBJECT, AppsConstants.SHARE_MSJ+" "+AppsConstants.LINK_PLAY_STORE);
 			break;
 			
 		case R.id.ic_app_icon:

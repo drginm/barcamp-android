@@ -190,7 +190,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 			break;
 			
 		case R.id.but_action_share:
-			Utils.share(HomeActivity.this, "Barcamp Med", "Descarga ya la aplicaci—n de Barcamp");
+			Utils.share(HomeActivity.this, AppsConstants.SHARE_SUBJECT, AppsConstants.SHARE_MSJ+" "+AppsConstants.LINK_PLAY_STORE);
 			break;
 
 		default:

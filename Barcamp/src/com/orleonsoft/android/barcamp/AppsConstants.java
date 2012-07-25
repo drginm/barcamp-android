@@ -11,7 +11,11 @@ public interface AppsConstants {
 
 	String LOG_TAG = "com.orleonsoft.android.barcamp";
 
+	String SHARE_MSJ= "Descarga ya la aplicaci—n de BarcampMed y disfruta del contenido de este evento.";
+	String  SHARE_SUBJECT = "Barcamp Med 2012";
 	String TWITTER_ACCOUNT = "@Barcamp_Med";
+	
+	String LINK_PLAY_STORE = "http://";
 
 	String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	String DATE_FORMAT = "yyyy-MM-dd";
