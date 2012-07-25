@@ -13,22 +13,31 @@ import org.json.JSONException;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.viewpagerindicator.TitlePageIndicator;
 
-public class HomeActivity extends FragmentActivity {
+public class HomeActivity extends FragmentActivity implements OnClickListener{
 
 	/** Called when the activity is first created. */
 	ViewPager pager;
 	PagerAdapter adapter;
 	TitlePageIndicator titleIndicator;
 	private ListSalasFragment mListSalasFragment;
+	
+	
+	ImageView butActionShare;
+	ImageView butActionAbout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,12 +45,19 @@ public class HomeActivity extends FragmentActivity {
 		setContentView(R.layout.home_screen);
 		pager = (ViewPager) findViewById(R.id.pager);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+		
+		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
+		butActionShare=(ImageView)findViewById(R.id.but_action_share);
+		
+		butActionAbout.setOnClickListener(this);
+		butActionShare.setOnClickListener(this);
 
+			
 		mListSalasFragment = new ListSalasFragment();
 
 		adapter = new PagerAdapter(getSupportFragmentManager());
 
-		adapter.addFragment(new ListFavoritesFragment());
+		//adapter.addFragment(new ListFavoritesFragment());
 		adapter.addFragment(mListSalasFragment);
 		adapter.addFragment(new TwitterFeedFragment());
 		adapter.addFragment(new PhotosFragment());
@@ -164,5 +180,21 @@ public class HomeActivity extends FragmentActivity {
 			}
 		}
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.but_action_about:
+			startActivity(new Intent(HomeActivity.this, AcercaDeActivity.class));
+			break;
+			
+		case R.id.but_action_share:
+			Utils.share(HomeActivity.this, "Barcamp Med", "Descarga ya la aplicaci—n de Barcamp");
+			break;
+
+		default:
+			break;
+		}
 	}
 }
