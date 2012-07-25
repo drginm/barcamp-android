@@ -1,5 +1,7 @@
 package com.orleonsoft.android.barcamp;
 
+import com.orleonsoft.android.barcampmed.R;
+
 /**
  * Archivo: AppsConstants.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
  * https://twitter.com/ingyesid Fecha:10/07/2012
@@ -11,11 +13,11 @@ public interface AppsConstants {
 
 	String LOG_TAG = "com.orleonsoft.android.barcamp";
 
-	String SHARE_MSJ= "Descarga ya la aplicaci—n de BarcampMed y disfruta del contenido de este evento.";
+	String SHARE_MSJ= "Descarga ya la aplicaci—n de @Barcamp_Med y disfruta del contenido de este evento ,";
 	String  SHARE_SUBJECT = "Barcamp Med 2012";
 	String TWITTER_ACCOUNT = "@Barcamp_Med";
 	
-	String LINK_PLAY_STORE = "http://";
+	String LINK_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.orleonsoft.android.barcampmed";
 
 	String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	String DATE_FORMAT = "yyyy-MM-dd";

@@ -13,6 +13,7 @@ import android.content.Intent;
  */
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import com.orleonsoft.android.barcampmed.R;
 
 /**
  *  Clase donde estan metodos de utilidad varios

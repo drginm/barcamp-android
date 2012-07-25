@@ -8,7 +8,7 @@ package com.orleonsoft.android.barcamp.network;
 
 import java.util.ArrayList;
 
-import com.orleonsoft.android.barcamp.R;
+import com.orleonsoft.android.barcampmed.R;
 import android.content.Context;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import com.orleonsoft.android.barcamp.network.AdapterListTweets;
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.orleonsoft.android.barcamp.network.TweetMessage;
+import com.orleonsoft.android.barcampmed.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

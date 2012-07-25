@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Place;
+import com.orleonsoft.android.barcampmed.R;
 
 public class ListSalasFragment extends Fragment {
 

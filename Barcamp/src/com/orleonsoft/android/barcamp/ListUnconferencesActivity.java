@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
+import com.orleonsoft.android.barcampmed.R;
 
 public class ListUnconferencesActivity extends ListActivity implements OnClickListener{
 

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.JSONParser;
+import com.orleonsoft.android.barcampmed.R;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class HomeActivity extends FragmentActivity implements OnClickListener{
