@@ -47,8 +47,8 @@ public class BDCreator extends SQLiteOpenHelper {
 				+ Database.TEXT_NOT_NULL + ")");
 
 		// creamos la tabla favorites
-		bd.execSQL("CREATE TABLE" + Database.NAME_TABLE_FAVORITE + " ("
-				+ Database._ID + " " + Database.PRIMARY_KEY + "AUTOINCREMENT, "
+		bd.execSQL("CREATE TABLE " + Database.NAME_TABLE_FAVORITE + " ("
+				+ Database._ID + " " + Database.PRIMARY_KEY + " AUTOINCREMENT, "
 				+ "id_unconference" + " " + Database.INTEGER_NOT_NULL + ")");
 	}
 
