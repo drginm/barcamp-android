@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
@@ -27,8 +28,8 @@ public class UnconferenceDetailActivity extends Activity  implements OnClickList
 	
 	ImageView butActionShare;
 	ImageView butActionAbout;
-	ImageView butPrevious;
-	ImageView butHome;
+	ImageView imgBack;
+	RelativeLayout butHome;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +45,13 @@ public class UnconferenceDetailActivity extends Activity  implements OnClickList
 		
 		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
 		butActionShare=(ImageView)findViewById(R.id.but_action_share);
-		butHome=(ImageView)findViewById(R.id.ic_app_icon);
-		butPrevious=(ImageView)findViewById(R.id.ic_previous);
-		butPrevious.setVisibility(View.VISIBLE);
+		butHome=(RelativeLayout)findViewById(R.id.back);
+		imgBack=(ImageView)findViewById(R.id.ic_previous);
+		imgBack.setVisibility(View.VISIBLE);
 		
 		butActionAbout.setOnClickListener(this);
 		butHome.setOnClickListener(this);
 		butActionShare.setOnClickListener(this);
-		butPrevious.setOnClickListener(this);
 
 		mUnconference = new Unconference();
 		Bundle extras = getIntent().getExtras();
@@ -111,16 +111,10 @@ public class UnconferenceDetailActivity extends Activity  implements OnClickList
 			Utils.share(UnconferenceDetailActivity.this, AppsConstants.SHARE_SUBJECT, AppsConstants.SHARE_MSJ+" "+AppsConstants.LINK_PLAY_STORE);
 			break;
 			
-		case R.id.ic_app_icon:
+		case R.id.back:
 			Intent intent = new Intent(this,HomeActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		       startActivity(intent);
-			break;
-			
-		case R.id.ic_previous:
-			Intent intentHome= new Intent(this,HomeActivity.class);
-			intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		       startActivity(intentHome);
 			break;
 
 		default:

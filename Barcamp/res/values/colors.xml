@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="blue">#00aeef</color>
-     <color name="ligth_blue">#57CAF4</color>
-     <color name="pink">#C0C0C0</color>
-    
+    <color name="ligth_blue">#57CAF4</color>
+    <color name="pink">#C0C0C0</color>
+    <color name="dark_gray">#1a1a1a</color>
+
 </resources>
