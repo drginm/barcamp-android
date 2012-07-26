@@ -2,16 +2,19 @@ package com.orleonsoft.android.barcamp;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
+import com.orleonsoft.android.barcampmed.R;
 
 public class UnconferenceDetailActivity extends Activity implements
 		OnClickListener {
@@ -25,6 +28,11 @@ public class UnconferenceDetailActivity extends Activity implements
 	private ImageView mImgFavorite;
 	private boolean esFavorito;
 
+	ImageView butActionShare;
+	ImageView butActionAbout;
+	ImageView imgBack;
+	RelativeLayout butHome;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +44,16 @@ public class UnconferenceDetailActivity extends Activity implements
 		mLabSpeakers = (TextView) findViewById(R.id.lab_speakers);
 		mLabKeyWords = (TextView) findViewById(R.id.lab_keywords);
 		mImgFavorite = (ImageView) findViewById(R.id.img_favorite);
+
+		butActionAbout = (ImageView) findViewById(R.id.but_action_about);
+		butActionShare = (ImageView) findViewById(R.id.but_action_share);
+		butHome = (RelativeLayout) findViewById(R.id.back);
+		imgBack = (ImageView) findViewById(R.id.ic_previous);
+		imgBack.setVisibility(View.VISIBLE);
+
+		butActionAbout.setOnClickListener(this);
+		butHome.setOnClickListener(this);
+		butActionShare.setOnClickListener(this);
 
 		mUnconference = new Unconference();
 		Bundle extras = getIntent().getExtras();
@@ -89,30 +107,53 @@ public class UnconferenceDetailActivity extends Activity implements
 	@Override
 	public void onClick(View v) {
 
-		if (esFavorito) {
-			UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (borrarFavorito(mUnconference.getIdentifier())) {
-						esFavorito = false;
-						mImgFavorite.setImageBitmap(BitmapFactory
-								.decodeResource(getResources(),
-										R.drawable.ic_unfavorite));
+		switch (v.getId()) {
+		case R.id.but_action_about:
+			startActivity(new Intent(UnconferenceDetailActivity.this,
+					AcercaDeActivity.class));
+			break;
+
+		case R.id.but_action_share:
+			Utils.share(UnconferenceDetailActivity.this,
+					AppsConstants.SHARE_SUBJECT, AppsConstants.SHARE_MSJ + " "
+							+ AppsConstants.LINK_PLAY_STORE);
+			break;
+
+		case R.id.back:
+			Intent intent = new Intent(this, HomeActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			break;
+
+		case R.id.img_favorite:
+			if (esFavorito) {
+				UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if (borrarFavorito(mUnconference.getIdentifier())) {
+							esFavorito = false;
+							mImgFavorite.setImageBitmap(BitmapFactory
+									.decodeResource(getResources(),
+											R.drawable.ic_unfavorite));
+						}
 					}
-				}
-			});
-		} else {
-			UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if ((insertarFavorito(mUnconference.getIdentifier()) != -1)) {
-						esFavorito = true;
-						mImgFavorite.setImageBitmap(BitmapFactory
-								.decodeResource(getResources(),
-										R.drawable.ic_favorite));
+				});
+			} else {
+				UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if ((insertarFavorito(mUnconference.getIdentifier()) != -1)) {
+							esFavorito = true;
+							mImgFavorite.setImageBitmap(BitmapFactory
+									.decodeResource(getResources(),
+											R.drawable.ic_favorite));
+						}
 					}
-				}
-			});
+				});
+			}
+			break;
+		default:
+			break;
 		}
 	}
 

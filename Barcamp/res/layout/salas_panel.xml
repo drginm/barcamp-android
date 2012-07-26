@@ -32,6 +32,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/img_prog_logo"
         android:layout_marginTop="10dp"
-        android:drawSelectorOnTop="false" />
+        android:drawSelectorOnTop="false"
+        
+         />
 
 </RelativeLayout>

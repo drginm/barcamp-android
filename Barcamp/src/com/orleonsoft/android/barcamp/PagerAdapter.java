@@ -30,7 +30,7 @@ public class PagerAdapter extends FragmentPagerAdapter{
 		case 0:
 			return "Favoritas";	
 		case 1:
-			return "Programacion";	
+			return "Programaci—n";	
 		case 2:
 			return "Twitter";
 		case 3:
@@ -39,8 +39,6 @@ public class PagerAdapter extends FragmentPagerAdapter{
 			return "";
 		}
 	}
-	
-	
 	
 	
 	@Override

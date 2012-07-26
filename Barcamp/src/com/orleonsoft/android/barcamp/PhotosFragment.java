@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.orleonsoft.android.barcamp.network.JSONParser;
 import com.orleonsoft.android.barcamp.network.PhotoBarcamp;
+import com.orleonsoft.android.barcampmed.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;

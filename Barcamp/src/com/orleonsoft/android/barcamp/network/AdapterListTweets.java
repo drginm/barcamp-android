@@ -8,7 +8,7 @@ package com.orleonsoft.android.barcamp.network;
 
 import java.util.ArrayList;
 
-import com.orleonsoft.android.barcamp.R;
+import com.orleonsoft.android.barcampmed.R;
 import android.content.Context;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -62,13 +62,11 @@ public class AdapterListTweets extends ArrayAdapter<TweetMessage> {
 		
 		Linkify.addLinks(labMessage, Linkify.WEB_URLS);
 		labMessage.setMovementMethod(LinkMovementMethod.getInstance());
-		
-		
-		
+			
 		TextView labDateTime = (TextView) view
 				.findViewById(R.id.lab_date_time);
-
-		labMessage.setText(tweets.get(position).getMesagge());
+		//se hace substring (12) porque el mensaje trae el username de barcamp en twitter y no se quiere mostrar eso en cada row
+		labMessage.setText(tweets.get(position).getMesagge().substring(12));
 		labDateTime.setText(tweets.get(position).getDate());
 		
 

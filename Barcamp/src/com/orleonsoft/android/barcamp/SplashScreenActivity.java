@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import com.orleonsoft.android.barcampmed.R;
 
 /**
  * Splash de la aplicacion

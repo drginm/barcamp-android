@@ -2,6 +2,7 @@ package com.orleonsoft.android.barcamp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.orleonsoft.android.barcampmed.R;
 
 public class AcercaDeActivity extends Activity {
 	

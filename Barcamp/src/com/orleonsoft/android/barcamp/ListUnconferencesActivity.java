@@ -21,12 +21,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
+import com.orleonsoft.android.barcampmed.R;
 
-public class ListUnconferencesActivity extends ListActivity {
+public class ListUnconferencesActivity extends ListActivity implements OnClickListener{
 
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
@@ -34,6 +36,11 @@ public class ListUnconferencesActivity extends ListActivity {
 	private TextView mLabNamePlace;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
+	
+	ImageView butActionShare;
+	ImageView butActionAbout;
+	ImageView imgBack;
+	RelativeLayout butHome;
 
 	public ListUnconferencesActivity() {
 		// TODO Auto-generated constructor stub
@@ -43,6 +50,17 @@ public class ListUnconferencesActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
+		
+		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
+		butActionShare=(ImageView)findViewById(R.id.but_action_share);
+		butHome=(RelativeLayout)findViewById(R.id.back);
+		imgBack=(ImageView)findViewById(R.id.ic_previous);
+		imgBack.setVisibility(View.VISIBLE);
+		
+		butActionAbout.setOnClickListener(this);
+		butHome.setOnClickListener(this);
+		butActionShare.setOnClickListener(this);
+		
 
 		mLabNamePlace = (TextView) findViewById(R.id.lab_name_place);
 
@@ -329,5 +347,28 @@ public class ListUnconferencesActivity extends ListActivity {
 				"id_unconference = ?", new String[] { "" + idUnconference });
 		dbAdapter.close();
 		return result != 0;
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.but_action_about:
+			startActivity(new Intent(ListUnconferencesActivity.this, AcercaDeActivity.class));
+			break;
+			
+		case R.id.but_action_share:
+			Utils.share(ListUnconferencesActivity.this, AppsConstants.SHARE_SUBJECT, AppsConstants.SHARE_MSJ+" "+AppsConstants.LINK_PLAY_STORE);
+			break;
+			
+		case R.id.back:
+			Intent intent = new Intent(this,HomeActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		       startActivity(intent);
+			break;
+	
+		default:
+			break;
+		}
+		
 	}
 }
