@@ -58,6 +58,12 @@ public class ListUnconferencesActivity extends ListActivity {
 		new ConsultarUnconferencesTask().execute();
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+		new ConsultarFavoritosTask().execute();
+	}
+
 	// view holder
 	static class ViewHolder {
 		TextView nameUnconference;
@@ -118,11 +124,11 @@ public class ListUnconferencesActivity extends ListActivity {
 									.runOnUiThread(new Runnable() {
 										@Override
 										public void run() {
-											v.setTag(false);
-											((ImageView) v)
-													.setImageBitmap(unFavorite);
 											long idUnconference = getItemId(pos);
 											if (borrarFavorito(idUnconference)) {
+												v.setTag(false);
+												((ImageView) v)
+														.setImageBitmap(unFavorite);
 												mFavoritosMap
 														.remove(idUnconference);
 											}
@@ -135,11 +141,11 @@ public class ListUnconferencesActivity extends ListActivity {
 										@Override
 										public void run() {
 											v.setTag(true);
-											((ImageView) v)
-													.setImageBitmap(favorite);
 											long idUnconference = getItemId(pos);
 											long idFavorito = insertarFavorito(idUnconference);
 											if (idFavorito != -1) {
+												((ImageView) v)
+														.setImageBitmap(favorite);
 												mFavoritosMap.put(
 														idUnconference,
 														idFavorito);
@@ -255,6 +261,52 @@ public class ListUnconferencesActivity extends ListActivity {
 			setListAdapter(mListAdapter);
 			getListView().setOnItemClickListener(mListAdapter);
 		};
+
+	}
+
+	// consultar los favoritos
+	private class ConsultarFavoritosTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			BDAdapter dbAdapter = new BDAdapter(ListUnconferencesActivity.this);
+			dbAdapter.openDataBase();
+			Cursor cursor = dbAdapter.consultar(
+					AppsConstants.Database.NAME_TABLE_FAVORITE, null, null,
+					new String[] {}, null);
+			boolean hayCambios = false;
+			if (cursor != null && cursor.getCount() > 0) {
+				// verifica si la lista de favoritos en la db ha cambiado con
+				// respecto a
+				// la lista de favoritos de la vista
+				if (cursor.getCount() != mFavoritosMap.size()) {
+					hayCambios = true;
+					// limpia el mapa de favoritos
+					mFavoritosMap.clear();
+					if (cursor.moveToFirst()) {
+						do {
+							mFavoritosMap.put(cursor.getLong(1),
+									cursor.getLong(0));
+						} while (cursor.moveToNext());
+					}
+
+				}
+				cursor.close();
+			}
+			dbAdapter.close();
+			return hayCambios;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+
+			if (result) {
+				if (mListAdapter != null) {
+					mListAdapter.notifyDataSetChanged();
+				}
+			}
+		}
 
 	}
 

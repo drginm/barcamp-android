@@ -1,16 +1,20 @@
 package com.orleonsoft.android.barcamp;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.Unconference;
 
-public class UnconferenceDetailActivity extends Activity {
+public class UnconferenceDetailActivity extends Activity implements
+		OnClickListener {
 
 	private Unconference mUnconference;
 	private TextView mLabNameUnconference;
@@ -36,6 +40,8 @@ public class UnconferenceDetailActivity extends Activity {
 		mUnconference = new Unconference();
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
+			// registra el evento
+			mImgFavorite.setOnClickListener(this);
 			esFavorito = extras.getBoolean("esFavorito");
 			mUnconference.setIdentifier(extras.getLong("_id"));
 			mUnconference.setName(extras.getString("Name"));
@@ -54,13 +60,13 @@ public class UnconferenceDetailActivity extends Activity {
 					AppsConstants.Database.NAME_TABLE_PLACE,
 					new String[] { "Name" }, "_id = ?",
 					new String[] { mUnconference.getPlace() + "" }, null);
-			
+
 			if (cursor != null) {
 				if (cursor.moveToFirst()) {
 					mUnconference.setNamePlace(cursor.getString(0));
 				}
 			}
-			
+
 			dbAdapter.close();
 
 		}
@@ -80,4 +86,54 @@ public class UnconferenceDetailActivity extends Activity {
 		}
 	}
 
+	@Override
+	public void onClick(View v) {
+
+		if (esFavorito) {
+			UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					if (borrarFavorito(mUnconference.getIdentifier())) {
+						esFavorito = false;
+						mImgFavorite.setImageBitmap(BitmapFactory
+								.decodeResource(getResources(),
+										R.drawable.ic_unfavorite));
+					}
+				}
+			});
+		} else {
+			UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					if ((insertarFavorito(mUnconference.getIdentifier()) != -1)) {
+						esFavorito = true;
+						mImgFavorite.setImageBitmap(BitmapFactory
+								.decodeResource(getResources(),
+										R.drawable.ic_favorite));
+					}
+				}
+			});
+		}
+	}
+
+	public long insertarFavorito(long idUnconference) {
+		BDAdapter dbAdapter = new BDAdapter(UnconferenceDetailActivity.this);
+		dbAdapter.openDataBase();
+		ContentValues values = new ContentValues();
+		values.put("id_unconference", idUnconference);
+		long result = dbAdapter.insert(
+				AppsConstants.Database.NAME_TABLE_FAVORITE, values);
+		dbAdapter.close();
+		return result;
+	}
+
+	public boolean borrarFavorito(long idUnconference) {
+		BDAdapter dbAdapter = new BDAdapter(UnconferenceDetailActivity.this);
+		dbAdapter.openDataBase();
+		long result = dbAdapter.delete(
+				AppsConstants.Database.NAME_TABLE_FAVORITE,
+				"id_unconference = ?", new String[] { "" + idUnconference });
+		dbAdapter.close();
+		return result != 0;
+	}
 }
