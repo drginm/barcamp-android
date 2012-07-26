@@ -6,7 +6,6 @@ import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.orleonsoft.android.barcampmed.R;
 
 
 public class PagerAdapter extends FragmentPagerAdapter{
@@ -40,8 +39,6 @@ public class PagerAdapter extends FragmentPagerAdapter{
 			return "";
 		}
 	}
-	
-	
 	
 	
 	@Override

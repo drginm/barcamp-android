@@ -22,6 +22,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.orleonsoft.android.barcamp.database.BDAdapter;
 import com.orleonsoft.android.barcamp.network.JSONParser;
@@ -39,6 +40,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	
 	ImageView butActionShare;
 	ImageView butActionAbout;
+	ImageView butActionRefresh;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,14 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		
 		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
 		butActionShare=(ImageView)findViewById(R.id.but_action_share);
+		butActionRefresh=(ImageView)findViewById(R.id.but_action_refresh);
+		
+		butActionRefresh.setVisibility(View.VISIBLE);
+		
 		
 		butActionAbout.setOnClickListener(this);
 		butActionShare.setOnClickListener(this);
+		butActionRefresh.setOnClickListener(this);
 
 			
 		mListSalasFragment = new ListSalasFragment();
@@ -192,6 +199,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 			
 		case R.id.but_action_share:
 			Utils.share(HomeActivity.this, AppsConstants.SHARE_SUBJECT, AppsConstants.SHARE_MSJ+" "+AppsConstants.LINK_PLAY_STORE);
+			break;
+			
+		case R.id.but_action_refresh:
+			Toast.makeText(HomeActivity.this, "Pulso refresh", Toast.LENGTH_SHORT).show();
 			break;
 
 		default:
