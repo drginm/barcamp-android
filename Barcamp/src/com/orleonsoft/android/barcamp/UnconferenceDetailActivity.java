@@ -93,8 +93,8 @@ public class UnconferenceDetailActivity extends Activity implements
 		mLabNameUnconference.setText(mUnconference.getName());
 		mLabSchedule.setText(mUnconference.getSchedule());
 		mLabDescription.setText(mUnconference.getDescription());
-		mLabSpeakers.setText(mUnconference.getSpeakers());
-		mLabKeyWords.setText(mUnconference.getKeywords());
+		mLabSpeakers.setText("Ponente : "+mUnconference.getSpeakers());
+		mLabKeyWords.setText("keyWords: "+mUnconference.getKeywords());
 		if (esFavorito) {
 			mImgFavorite.setImageBitmap(BitmapFactory.decodeResource(
 					getResources(), R.drawable.ic_favorite));

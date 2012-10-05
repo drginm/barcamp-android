@@ -22,25 +22,20 @@
             android:name="com.orleonsoft.android.barcamp.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.orleonsoft.android.barcamp.ListUnconferencesActivity"
-              android:screenOrientation="portrait"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="com.orleonsoft.android.barcamp.UnconferenceDetailActivity"
-              android:screenOrientation="portrait"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="com.orleonsoft.android.barcamp.AcercaDeActivity"
-              android:screenOrientation="portrait"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>
