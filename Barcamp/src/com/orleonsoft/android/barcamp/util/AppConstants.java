@@ -21,8 +21,6 @@ public interface AppConstants {
 	String DATE_FORMAT = "yyyy-MM-dd";
 
 	String URL_GET_PROGRAMACION="http://barcampmed.azurewebsites.net/api/programacion";
-	String URL_GET_SALAS = "http://barcampmedellin.org/barcampmed2012/Services/BarCamp.svc/GetPlaces";
-	String URL_GET_DESCONFERENCIAS = "http://barcampmedellin.org/barcampmed2012/Services/BarCamp.svc/GetUnconferences";
 
 	String RSS_TO_JSON_SERVICE_URL = "http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&num=20&q=";
 

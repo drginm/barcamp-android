@@ -4,13 +4,16 @@ import java.io.IOException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +44,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_screen);
+		
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 
@@ -50,8 +54,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 		mPagerAdapter.addFragment(new ListFavoritesFragment());
 		mPagerAdapter.addFragment(mListSalasFragment);
-		mPagerAdapter.addFragment(new TwitterFeedFragment());
-		mPagerAdapter.addFragment(new PhotosFragment());
+		//mPagerAdapter.addFragment(new TwitterFeedFragment());
+		//mPagerAdapter.addFragment(new PhotosFragment());
 
 		mViewPager.setAdapter(mPagerAdapter);
 		titleIndicator.setViewPager(mViewPager, 1);
@@ -82,12 +86,9 @@ public class MainActivity extends SherlockFragmentActivity implements
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
 			JSONArray salas;
-			JSONArray unconferences;
 			try {
 				salas = JSONParser
-						.getJSONArrayFromURL(AppConstants.URL_GET_SALAS);
-				unconferences = JSONParser
-						.getJSONArrayFromURL(AppConstants.URL_GET_DESCONFERENCIAS);
+						.getJSONArrayFromURL(AppConstants.URL_GET_PROGRAMACION);
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
@@ -95,55 +96,63 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 			BDAdapter dbAdapter = new BDAdapter(MainActivity.this);
 			dbAdapter.openDataBase();
-			if (salas != null && salas.length() > 0 && unconferences != null
-					&& unconferences.length() > 0) {
+			if (salas != null && salas.length() > 0) {
 				// insertar data de las salas en la tabla places
 				for (int i = 0; i < salas.length(); i++) {
 					ContentValues record = new ContentValues();
 					try {
+						JSONObject sala = salas.getJSONObject(i);
 						record.put("_id",
-								salas.getJSONObject(i).getString("Identifier"));
+								sala.getString("id"));
 						record.put("Name",
-								salas.getJSONObject(i).getString("Name"));
-						record.put("Description", salas.getJSONObject(i)
-								.getString("Description"));
+								sala.getString("nombre"));
+						record.put("Description", sala
+								.getString("descripcion"));
 						record.put("Image",
-								salas.getJSONObject(i).getString("Image"));
+								sala.getString("imagen"));
 						dbAdapter.insert(
 								AppConstants.Database.NAME_TABLE_PLACE, record);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-
-				}
-
-				// insertar data de unconferences
-				for (int i = 0; i < unconferences.length(); i++) {
-					ContentValues record = new ContentValues();
-					try {
-						record.put("_id", unconferences.getJSONObject(i)
-								.getString("Identifier"));
-						record.put("Description", unconferences
-								.getJSONObject(i).getString("Description"));
-						record.put("Name", unconferences.getJSONObject(i)
-								.getString("Name"));
-						record.put("Keywords", unconferences.getJSONObject(i)
-								.getString("Keywords"));
-						record.put("place", unconferences.getJSONObject(i)
-								.getInt("Place"));
-						record.put("Schedule", unconferences.getJSONObject(i)
-								.getString("Schedule"));
-						record.put("ScheduleId", unconferences.getJSONObject(i)
-								.getInt("ScheduleId"));
-						record.put("Speakers", unconferences.getJSONObject(i)
-								.getString("Speakers"));
-						record.put("StartTime", unconferences.getJSONObject(i)
-								.getString("StartTime").replace('/', '-'));
-						record.put("EndTime", unconferences.getJSONObject(i)
-								.getString("EndTime").replace('/', '-'));
-						dbAdapter.insert(
-								AppConstants.Database.NAME_TABLE_UNCONFERENCE,
-								record);
+						JSONArray unconferences = sala.getJSONArray("Conferencias");
+						if(unconferences != null
+								&& unconferences.length() > 0){
+							// insertar data de unconferences
+							for (int j = 0; j < unconferences.length(); j++) {
+								/*ContentValues*/ record = new ContentValues();
+								try {
+									JSONObject unconference = unconferences.getJSONObject(j);
+									record.put("_id", unconference
+											.getString("id"));
+									record.put("Description", unconference.getString("resumen"));
+									record.put("Name", unconference
+											.getString("nombre"));
+									record.put("Keywords", unconference
+											.getString("palabrasClave"));
+									record.put("place", unconference
+											.getInt("idEspacio"));
+									JSONObject schedule = unconference.getJSONObject("horario");
+									record.put("ScheduleId", schedule
+											.getInt("id"));
+									record.put("Speakers", unconference
+											.getString("expositores"));
+									//referencia
+									//twitter
+									//"horario":{"id":12,"fechaInicio":"2013-07-27T09:00:00","fechaFin":"2013-07-27T09:30:00"}
+									
+									record.put("StartTime", schedule
+											.getString("fechaInicio").replace('/', '-'));
+									record.put("EndTime", schedule
+											.getString("fechaFin").replace('/', '-'));
+									record.put("Schedule", "09:40am - 10:10am"/*unconferences.getJSONObject(j)
+											.getString("Schedule")*/);
+									dbAdapter.insert(
+											AppConstants.Database.NAME_TABLE_UNCONFERENCE,
+											record);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+	
+							}
+						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

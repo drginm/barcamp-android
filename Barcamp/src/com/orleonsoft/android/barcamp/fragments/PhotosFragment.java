@@ -13,6 +13,7 @@ import com.orleonsoft.android.barcamp.util.Utils;
 import com.orleonsoft.android.barcamp.ws.JSONParser;
 import com.orleonsoft.android.barcamp.ws.PhotoBarcamp;
 import com.orleonsoft.android.barcampmed.R;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;

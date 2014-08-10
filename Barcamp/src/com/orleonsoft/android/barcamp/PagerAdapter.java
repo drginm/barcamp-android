@@ -4,8 +4,6 @@ package com.orleonsoft.android.barcamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.app.SherlockFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,12 +16,12 @@ public class PagerAdapter extends FragmentPagerAdapter{
 		super(fm);
 		fragments = new ArrayList<Fragment>();
 	}
-	public void addFragment(SherlockFragment fragment){
+	public void addFragment(Fragment fragment){
 		fragments.add(fragment);
 	}
 	@Override
-	public SherlockFragment getItem(int position) {
-		return (SherlockFragment) fragments.get(position);
+	public Fragment getItem(int position) {
+		return (Fragment) fragments.get(position);
 	}
 		
 	@Override
@@ -35,8 +33,8 @@ public class PagerAdapter extends FragmentPagerAdapter{
 		case 1:
 			return "Programacion";	
 		case 2:
-			return "Twitter";
-		case 3:
+			/*return "Twitter";
+		case 3:*/
 			return "Fotos";
 		default:
 			return "";
