@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.ws;
+package com.barcampmed.ws;
 
 public class Unconference {
 	private long identifier;

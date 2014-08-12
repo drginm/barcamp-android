@@ -1,8 +1,8 @@
-package com.orleonsoft.android.barcamp.ui;
+package com.barcampmed.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
 
 public class AcercaDeActivity extends Activity {
 	

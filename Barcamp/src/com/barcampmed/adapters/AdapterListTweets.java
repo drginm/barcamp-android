@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.adapters;
+package com.barcampmed.adapters;
 
 /**
  *Archivo: AdapterListCategorias.java
@@ -8,8 +8,8 @@ package com.orleonsoft.android.barcamp.adapters;
 
 import java.util.ArrayList;
 
-import com.orleonsoft.android.barcamp.ws.TweetMessage;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
+import com.barcampmed.ws.TweetMessage;
 
 import android.content.Context;
 import android.text.method.LinkMovementMethod;

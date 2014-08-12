@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.fragments;
+package com.barcampmed.fragments;
 
 import java.util.ArrayList;
 
@@ -19,12 +19,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.orleonsoft.android.barcamp.db.BDAdapter;
-import com.orleonsoft.android.barcamp.ui.ListUnconferencesActivity;
-import com.orleonsoft.android.barcamp.util.AppConstants;
-import com.orleonsoft.android.barcamp.util.Utils;
-import com.orleonsoft.android.barcamp.ws.Place;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
+import com.barcampmed.db.BDAdapter;
+import com.barcampmed.ui.ListUnconferencesActivity;
+import com.barcampmed.util.AppConstants;
+import com.barcampmed.util.Utils;
+import com.barcampmed.ws.Place;
 
 public class ListSalasFragment extends Fragment {
 

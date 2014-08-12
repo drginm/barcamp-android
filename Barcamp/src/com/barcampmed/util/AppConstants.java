@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.util;
+package com.barcampmed.util;
 
 /**
  * Archivo: AppsConstants.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /

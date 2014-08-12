@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.db;
+package com.barcampmed.db;
 
 /**
  * Archivo: BDAdapter.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /

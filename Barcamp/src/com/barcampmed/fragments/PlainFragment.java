@@ -1,5 +1,5 @@
 
-package com.orleonsoft.android.barcamp.fragments;
+package com.barcampmed.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
 
 public class PlainFragment extends Fragment {
 

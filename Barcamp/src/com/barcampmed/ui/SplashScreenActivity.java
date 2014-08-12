@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.ui;
+package com.barcampmed.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.WindowManager;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
-import com.orleonsoft.android.barcamp.util.AppConstants;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
+import com.barcampmed.util.AppConstants;
 
 public class SplashScreenActivity extends SherlockActivity {
 

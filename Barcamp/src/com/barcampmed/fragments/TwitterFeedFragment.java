@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.fragments;
+package com.barcampmed.fragments;
 
 import java.util.ArrayList;
 
@@ -6,12 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.orleonsoft.android.barcamp.adapters.AdapterListTweets;
-import com.orleonsoft.android.barcamp.util.AppConstants;
-import com.orleonsoft.android.barcamp.util.Utils;
-import com.orleonsoft.android.barcamp.ws.JSONParser;
-import com.orleonsoft.android.barcamp.ws.TweetMessage;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
+import com.barcampmed.adapters.AdapterListTweets;
+import com.barcampmed.util.AppConstants;
+import com.barcampmed.util.Utils;
+import com.barcampmed.ws.JSONParser;
+import com.barcampmed.ws.TweetMessage;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

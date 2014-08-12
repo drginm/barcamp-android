@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.ui;
+package com.barcampmed.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +24,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.orleonsoft.android.barcamp.db.BDAdapter;
-import com.orleonsoft.android.barcamp.util.AppConstants;
-import com.orleonsoft.android.barcamp.util.Utils;
-import com.orleonsoft.android.barcamp.ws.Unconference;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
+import com.barcampmed.db.BDAdapter;
+import com.barcampmed.util.AppConstants;
+import com.barcampmed.util.Utils;
+import com.barcampmed.ws.Unconference;
 
 public class ListUnconferencesActivity extends ListActivity implements OnClickListener{
 

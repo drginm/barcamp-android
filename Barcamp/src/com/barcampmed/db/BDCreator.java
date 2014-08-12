@@ -1,12 +1,12 @@
-package com.orleonsoft.android.barcamp.db;
+package com.barcampmed.db;
 
 /**
  * Archivo: BDCreator.java Autor:Yesid Lazaro lazaro.yesid@gmail.com /
  * https://twitter.com/ingyesid Fecha:10/07/2012
  */
 
-import com.orleonsoft.android.barcamp.util.AppConstants;
-import com.orleonsoft.android.barcamp.util.AppConstants.Database;
+import com.barcampmed.util.AppConstants;
+import com.barcampmed.util.AppConstants.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

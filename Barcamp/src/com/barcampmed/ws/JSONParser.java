@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.ws;
+package com.barcampmed.ws;
 
 import java.io.BufferedReader;
 import java.io.IOException;

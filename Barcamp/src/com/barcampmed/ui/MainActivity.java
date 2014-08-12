@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.ui;
+package com.barcampmed.ui;
 
 import java.io.IOException;
 
@@ -20,16 +20,16 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.orleonsoft.android.barcamp.PagerAdapter;
-import com.orleonsoft.android.barcamp.db.BDAdapter;
-import com.orleonsoft.android.barcamp.fragments.ListFavoritesFragment;
-import com.orleonsoft.android.barcamp.fragments.ListSalasFragment;
-import com.orleonsoft.android.barcamp.fragments.PhotosFragment;
-import com.orleonsoft.android.barcamp.fragments.TwitterFeedFragment;
-import com.orleonsoft.android.barcamp.util.AppConstants;
-import com.orleonsoft.android.barcamp.util.Utils;
-import com.orleonsoft.android.barcamp.ws.JSONParser;
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.PagerAdapter;
+import com.barcampmed.R;
+import com.barcampmed.db.BDAdapter;
+import com.barcampmed.fragments.ListFavoritesFragment;
+import com.barcampmed.fragments.ListSalasFragment;
+import com.barcampmed.fragments.PhotosFragment;
+import com.barcampmed.fragments.TwitterFeedFragment;
+import com.barcampmed.util.AppConstants;
+import com.barcampmed.util.Utils;
+import com.barcampmed.ws.JSONParser;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity implements
@@ -116,6 +116,10 @@ public class MainActivity extends SherlockFragmentActivity implements
 						if(unconferences != null
 								&& unconferences.length() > 0){
 							// insertar data de unconferences
+
+							//TODO: We have a special type of unconference
+							//"id":2303,"nombre":"Desconferencia espontánea"
+
 							for (int j = 0; j < unconferences.length(); j++) {
 								/*ContentValues*/ record = new ContentValues();
 								try {

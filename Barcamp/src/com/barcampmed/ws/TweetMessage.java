@@ -1,4 +1,4 @@
-package com.orleonsoft.android.barcamp.ws;
+package com.barcampmed.ws;
 /**
  *Archivo: TweetMessage.java
  *Autor:Yesid Lazaro lazaro.yesid@gmail.com / https://twitter.com/ingyesid

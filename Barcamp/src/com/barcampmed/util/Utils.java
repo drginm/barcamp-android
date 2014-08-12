@@ -1,9 +1,9 @@
-package com.orleonsoft.android.barcamp.util;
+package com.barcampmed.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import com.orleonsoft.android.barcampmed.R;
+import com.barcampmed.R;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;

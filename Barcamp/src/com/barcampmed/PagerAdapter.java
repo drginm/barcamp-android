@@ -1,5 +1,5 @@
 
-package com.orleonsoft.android.barcamp;
+package com.barcampmed;
 
 import java.util.ArrayList;
 import java.util.List;
