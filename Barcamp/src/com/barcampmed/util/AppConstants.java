@@ -11,21 +11,20 @@ public interface AppConstants {
 
 	String LOG_TAG = "com.orleonsoft.android.barcamp";
 
-	String SHARE_MSJ= "Descarga ya la aplicaci?n de @Barcamp_Med y disfruta del contenido de este evento ,";
-	String  SHARE_SUBJECT = "Barcamp Med 2012";
+	String SHARE_MSJ= "Descarga ya la aplicación de @Barcamp_Med y disfruta del contenido de este evento ,";
+	String SHARE_SUBJECT = "Barcamp Med 2014";
 	String TWITTER_ACCOUNT = "@Barcamp_Med";
 	
-	String LINK_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.orleonsoft.android.barcampmed";
+	String LINK_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.barcampmed";
 
 	String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	String DATE_FORMAT = "yyyy-MM-dd";
+	String DATE_TIME_API_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+	String DATE_TIME_SCHEDULE_FORMAT = "hh:mma";
 
-	String URL_GET_PROGRAMACION="http://barcampmed.azurewebsites.net/api/programacion";
+	String URL_GET_PROGRAMACION="http://barcampnet.azurewebsites.net/api/programacion";
 
 	String RSS_TO_JSON_SERVICE_URL = "http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&num=20&q=";
-
-	String TWITTER_FEED_BARCAMP = "https://twitter.com/statuses/user_timeline/36675597.rss";
-	String PICASA_ALBUM_URL = "https://picasaweb.google.com/data/feed/base/user/106535197990515868187/albumid/5766331512191621569?alt=rss&kind=photo&hl=es";
 
 	String KEY_ENTRIES = "entries";
 	String KEY_MEDIA_GROUPS = "mediaGroups";

@@ -1,51 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black" >
+    android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/barcamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
         android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
         android:src="@drawable/barcamp" />
-
-    <TextView
-        android:id="@+id/developers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/barcamp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/lab_developers"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/ligth_blue"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/orleonsoft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/developers"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/orleonsoft" />
-
-    <TextView
-        android:id="@+id/web_orleonsoft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/orleonsoft"
-        android:layout_centerHorizontal="true"
-        android:autoLink="web"
-        android:text="@string/web_orleonsoft"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColorLink="@color/blue" />
 
     <TextView
         android:id="@+id/web_barcamp"

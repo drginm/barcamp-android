@@ -3,7 +3,6 @@ package com.barcampmed.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,16 +20,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.barcampmed.R;
 import com.barcampmed.db.BDAdapter;
 import com.barcampmed.util.AppConstants;
 import com.barcampmed.util.Utils;
 import com.barcampmed.ws.Unconference;
 
-public class ListUnconferencesActivity extends ListActivity implements OnClickListener{
+public class ListUnconferencesActivity extends SherlockListActivity {
 
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
@@ -38,11 +39,6 @@ public class ListUnconferencesActivity extends ListActivity implements OnClickLi
 	private TextView mLabNamePlace;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
-	
-	ImageView butActionShare;
-	ImageView butActionAbout;
-	ImageView imgBack;
-	RelativeLayout butHome;
 
 	public ListUnconferencesActivity() {
 		// TODO Auto-generated constructor stub
@@ -52,17 +48,8 @@ public class ListUnconferencesActivity extends ListActivity implements OnClickLi
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unconference_screen);
-		
-		butActionAbout=(ImageView)findViewById(R.id.but_action_about);
-		butActionShare=(ImageView)findViewById(R.id.but_action_share);
-		butHome=(RelativeLayout)findViewById(R.id.back);
-		imgBack=(ImageView)findViewById(R.id.ic_previous);
-		imgBack.setVisibility(View.VISIBLE);
-		
-		butActionAbout.setOnClickListener(this);
-		butHome.setOnClickListener(this);
-		butActionShare.setOnClickListener(this);
-		
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		mLabNamePlace = (TextView) findViewById(R.id.lab_name_place);
 
@@ -350,27 +337,30 @@ public class ListUnconferencesActivity extends ListActivity implements OnClickLi
 		dbAdapter.close();
 		return result != 0;
 	}
-	
+
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.but_action_about:
-			startActivity(new Intent(ListUnconferencesActivity.this, AcercaDeActivity.class));
-			break;
-			
-		case R.id.but_action_share:
-			Utils.share(ListUnconferencesActivity.this, AppConstants.SHARE_SUBJECT, AppConstants.SHARE_MSJ+" "+AppConstants.LINK_PLAY_STORE);
-			break;
-			
-		case R.id.back:
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Share")
+		.setIcon(R.drawable.ic_action_share)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
 			Intent intent = new Intent(this,MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		       startActivity(intent);
-			break;
-	
-		default:
-			break;
+			return true;
 		}
-		
+
+		if("Share".equals(item.getTitle())){
+			Utils.share(ListUnconferencesActivity.this, AppConstants.SHARE_SUBJECT, AppConstants.SHARE_MSJ+" "+AppConstants.LINK_PLAY_STORE);
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }

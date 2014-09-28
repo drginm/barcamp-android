@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sala"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="22sp" />
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lab_sala"
         android:text="Proxima: "
-        android:textColor="@color/blue"
+        android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_below="@id/lab_sala"
         android:layout_toRightOf="@id/lab_fixed_proxima"
         android:text="Sala N "
-        android:textColor="@android:color/white"
+        android:textColor="@color/blue"
         android:textSize="14sp" />
 
 </RelativeLayout>

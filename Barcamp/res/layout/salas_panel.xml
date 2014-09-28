@@ -12,7 +12,7 @@
         android:layout_margin="10dp"
         android:text="@string/lab_programacion"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <ImageView

@@ -1,6 +1,5 @@
 package com.barcampmed.ui;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,13 +11,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.barcampmed.R;
 import com.barcampmed.db.BDAdapter;
 import com.barcampmed.util.AppConstants;
 import com.barcampmed.util.Utils;
 import com.barcampmed.ws.Unconference;
 
-public class UnconferenceDetailActivity extends Activity implements
+public class UnconferenceDetailActivity extends SherlockActivity implements
 		OnClickListener {
 
 	private Unconference mUnconference;
@@ -30,15 +32,12 @@ public class UnconferenceDetailActivity extends Activity implements
 	private ImageView mImgFavorite;
 	private boolean esFavorito;
 
-	ImageView butActionShare;
-	ImageView butActionAbout;
-	ImageView imgBack;
-	RelativeLayout butHome;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details_unconference_screen);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		mLabNameUnconference = (TextView) findViewById(R.id.lab_name_unconference);
 		mLabSchedule = (TextView) findViewById(R.id.lab_schedule);
@@ -46,16 +45,6 @@ public class UnconferenceDetailActivity extends Activity implements
 		mLabSpeakers = (TextView) findViewById(R.id.lab_speakers);
 		mLabKeyWords = (TextView) findViewById(R.id.lab_keywords);
 		mImgFavorite = (ImageView) findViewById(R.id.img_favorite);
-
-		butActionAbout = (ImageView) findViewById(R.id.but_action_about);
-		butActionShare = (ImageView) findViewById(R.id.but_action_share);
-		butHome = (RelativeLayout) findViewById(R.id.back);
-		imgBack = (ImageView) findViewById(R.id.ic_previous);
-		imgBack.setVisibility(View.VISIBLE);
-
-		butActionAbout.setOnClickListener(this);
-		butHome.setOnClickListener(this);
-		butActionShare.setOnClickListener(this);
 
 		mUnconference = new Unconference();
 		Bundle extras = getIntent().getExtras();
@@ -107,25 +96,37 @@ public class UnconferenceDetailActivity extends Activity implements
 	}
 
 	@Override
-	public void onClick(View v) {
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Share")
+		.setIcon(R.drawable.ic_action_share)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		return true;
+	}
 
-		switch (v.getId()) {
-		case R.id.but_action_about:
-			startActivity(new Intent(UnconferenceDetailActivity.this,
-					AcercaDeActivity.class));
-			break;
-
-		case R.id.but_action_share:
-			Utils.share(UnconferenceDetailActivity.this,
-					AppConstants.SHARE_SUBJECT, AppConstants.SHARE_MSJ + " "
-							+ AppConstants.LINK_PLAY_STORE);
-			break;
-
-		case R.id.back:
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			break;
+			return true;
+		}
+
+		if("Share".equals(item.getTitle())){
+			Utils.share(UnconferenceDetailActivity.this,
+					AppConstants.SHARE_SUBJECT, AppConstants.SHARE_MSJ + " "
+							+ AppConstants.LINK_PLAY_STORE);
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
 
 		case R.id.img_favorite:
 			if (esFavorito) {

@@ -35,10 +35,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.barcampmed.ui.AcercaDeActivityity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="com.barcampmed.ui.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >

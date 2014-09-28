@@ -1,49 +1,56 @@
 package com.barcampmed.ui;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.barcampmed.PagerAdapter;
 import com.barcampmed.R;
 import com.barcampmed.db.BDAdapter;
+import com.barcampmed.fragments.AboutFragment;
 import com.barcampmed.fragments.ListFavoritesFragment;
 import com.barcampmed.fragments.ListSalasFragment;
-import com.barcampmed.fragments.PhotosFragment;
-import com.barcampmed.fragments.TwitterFeedFragment;
 import com.barcampmed.util.AppConstants;
 import com.barcampmed.util.Utils;
 import com.barcampmed.ws.JSONParser;
 import com.viewpagerindicator.TitlePageIndicator;
 
-public class MainActivity extends SherlockFragmentActivity implements
-		OnClickListener {
+public class MainActivity extends SherlockFragmentActivity {
 
 	private ViewPager mViewPager;
 	private PagerAdapter mPagerAdapter;
 	private TitlePageIndicator titleIndicator;
 	private ListSalasFragment mListSalasFragment;
+	private SimpleDateFormat sourceDateFormat, targetDateFormat;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_screen);
+
+		sourceDateFormat = new SimpleDateFormat(AppConstants.DATE_TIME_API_FORMAT);
+		targetDateFormat = new SimpleDateFormat(AppConstants.DATE_TIME_SCHEDULE_FORMAT);
 		
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
@@ -52,13 +59,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 		mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
-		mPagerAdapter.addFragment(new ListFavoritesFragment());
 		mPagerAdapter.addFragment(mListSalasFragment);
-		//mPagerAdapter.addFragment(new TwitterFeedFragment());
-		//mPagerAdapter.addFragment(new PhotosFragment());
+		mPagerAdapter.addFragment(new ListFavoritesFragment());
+		mPagerAdapter.addFragment(new AboutFragment());
 
 		mViewPager.setAdapter(mPagerAdapter);
-		titleIndicator.setViewPager(mViewPager, 1);
+		titleIndicator.setViewPager(mViewPager, 0);
 
 		SharedPreferences settings = getSharedPreferences("settings",
 				MODE_PRIVATE);
@@ -97,6 +103,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 			BDAdapter dbAdapter = new BDAdapter(MainActivity.this);
 			dbAdapter.openDataBase();
 			if (salas != null && salas.length() > 0) {
+				int unconferenceCounter = 0;
+				HashMap<String, Integer> unconferenceMap = new HashMap<String, Integer>();
 				// insertar data de las salas en la tabla places
 				for (int i = 0; i < salas.length(); i++) {
 					ContentValues record = new ContentValues();
@@ -117,15 +125,22 @@ public class MainActivity extends SherlockFragmentActivity implements
 								&& unconferences.length() > 0){
 							// insertar data de unconferences
 
-							//TODO: We have a special type of unconference
-							//"id":2303,"nombre":"Desconferencia espontánea"
-
 							for (int j = 0; j < unconferences.length(); j++) {
-								/*ContentValues*/ record = new ContentValues();
+								record = new ContentValues();
 								try {
 									JSONObject unconference = unconferences.getJSONObject(j);
-									record.put("_id", unconference
-											.getString("id"));
+
+									String unconferenceId = unconference.getString("id");
+
+									if(unconferenceMap.containsKey(unconferenceId)){
+										unconferenceCounter = unconferenceMap.get(unconferenceId) + 1;
+										unconferenceMap.put(unconferenceId, unconferenceCounter);
+										unconferenceId += "0" + unconferenceCounter;
+									}
+									else {
+										unconferenceMap.put(unconferenceId, 1);
+									}
+									record.put("_id", unconferenceId);
 									record.put("Description", unconference.getString("resumen"));
 									record.put("Name", unconference
 											.getString("nombre"));
@@ -138,16 +153,20 @@ public class MainActivity extends SherlockFragmentActivity implements
 											.getInt("id"));
 									record.put("Speakers", unconference
 											.getString("expositores"));
-									//referencia
-									//twitter
-									//"horario":{"id":12,"fechaInicio":"2013-07-27T09:00:00","fechaFin":"2013-07-27T09:30:00"}
-									
+
 									record.put("StartTime", schedule
 											.getString("fechaInicio").replace('/', '-'));
 									record.put("EndTime", schedule
 											.getString("fechaFin").replace('/', '-'));
-									record.put("Schedule", "09:40am - 10:10am"/*unconferences.getJSONObject(j)
-											.getString("Schedule")*/);
+									try {
+										Date fechaInicio = sourceDateFormat.parse(schedule.getString("fechaInicio"));
+										Date fechaFin = sourceDateFormat.parse(schedule.getString("fechaFin"));
+										record.put("Schedule", String.format("%s - %s",
+												targetDateFormat.format(fechaInicio),
+												targetDateFormat.format(fechaFin)));
+									} catch (ParseException e) {
+										e.printStackTrace();
+									}
 									dbAdapter.insert(
 											AppConstants.Database.NAME_TABLE_UNCONFERENCE,
 											record);
@@ -186,24 +205,28 @@ public class MainActivity extends SherlockFragmentActivity implements
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.but_action_about:
-			startActivity(new Intent(MainActivity.this, AcercaDeActivity.class));
-			break;
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Refresh")
+		.setIcon(R.drawable.ic_action_refresh)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add("Share")
+		.setIcon(R.drawable.ic_action_share)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		return true;
+	}
 
-		case R.id.but_action_share:
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if("Refresh".equals(item.getTitle())){
+			new DescargarDataTask().execute();
+			return true;
+		}
+		else if("Share".equals(item.getTitle())){
 			Utils.share(MainActivity.this, AppConstants.SHARE_SUBJECT,
 					AppConstants.SHARE_MSJ + " " + AppConstants.LINK_PLAY_STORE);
-			break;
-
-		case R.id.but_action_refresh:
-			Toast.makeText(MainActivity.this, "Pulso refresh",
-					Toast.LENGTH_SHORT).show();
-			break;
-
-		default:
-			break;
+			return true;
 		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }
