@@ -20,8 +20,7 @@ import com.barcampmed.util.AppConstants;
 import com.barcampmed.util.Utils;
 import com.barcampmed.ws.Unconference;
 
-public class UnconferenceDetailActivity extends SherlockActivity implements
-		OnClickListener {
+public class UnconferenceDetailActivity extends SherlockActivity {
 
 	private Unconference mUnconference;
 	private TextView mLabNameUnconference;
@@ -29,8 +28,8 @@ public class UnconferenceDetailActivity extends SherlockActivity implements
 	private TextView mLabDescription;
 	private TextView mLabSpeakers;
 	private TextView mLabKeyWords;
-	private ImageView mImgFavorite;
 	private boolean esFavorito;
+	private MenuItem favoriteMenuItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +43,15 @@ public class UnconferenceDetailActivity extends SherlockActivity implements
 		mLabDescription = (TextView) findViewById(R.id.lab_description);
 		mLabSpeakers = (TextView) findViewById(R.id.lab_speakers);
 		mLabKeyWords = (TextView) findViewById(R.id.lab_keywords);
-		mImgFavorite = (ImageView) findViewById(R.id.img_favorite);
 
 		mUnconference = new Unconference();
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			// registra el evento
-			mImgFavorite.setOnClickListener(this);
 			esFavorito = extras.getBoolean("esFavorito");
 			mUnconference.setIdentifier(extras.getLong("_id"));
 			mUnconference.setName(extras.getString("Name"));
+			getSupportActionBar().setSubtitle(extras.getString("Name"));
 			mUnconference.setDescription(extras.getString("Description"));
 			mUnconference.setPlace(extras.getLong("Place"));
 			mUnconference.setKeywords(extras.getString("Keywords"));
@@ -86,13 +84,6 @@ public class UnconferenceDetailActivity extends SherlockActivity implements
 		mLabDescription.setText(mUnconference.getDescription());
 		mLabSpeakers.setText("Ponente : "+mUnconference.getSpeakers());
 		mLabKeyWords.setText("keyWords: "+mUnconference.getKeywords());
-		if (esFavorito) {
-			mImgFavorite.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.ic_favorite));
-		} else {
-			mImgFavorite.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.ic_unfavorite));
-		}
 	}
 
 	@Override
@@ -100,6 +91,11 @@ public class UnconferenceDetailActivity extends SherlockActivity implements
 		menu.add("Share")
 		.setIcon(R.drawable.ic_action_share)
 		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		favoriteMenuItem = menu.add("Favorite");
+		favoriteMenuItem.setIcon(esFavorito ? R.drawable.ic_favorite : R.drawable.ic_unfavorite)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
 		return true;
 	}
 
@@ -119,25 +115,14 @@ public class UnconferenceDetailActivity extends SherlockActivity implements
 							+ AppConstants.LINK_PLAY_STORE);
 			return true;
 		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onClick(View v) {
-
-		switch (v.getId()) {
-
-		case R.id.img_favorite:
+		else if("Favorite".equals(item.getTitle())){
 			if (esFavorito) {
 				UnconferenceDetailActivity.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						if (borrarFavorito(mUnconference.getIdentifier())) {
 							esFavorito = false;
-							mImgFavorite.setImageBitmap(BitmapFactory
-									.decodeResource(getResources(),
-											R.drawable.ic_unfavorite));
+							favoriteMenuItem.setIcon(R.drawable.ic_unfavorite);
 						}
 					}
 				});
@@ -147,17 +132,15 @@ public class UnconferenceDetailActivity extends SherlockActivity implements
 					public void run() {
 						if ((insertarFavorito(mUnconference.getIdentifier()) != -1)) {
 							esFavorito = true;
-							mImgFavorite.setImageBitmap(BitmapFactory
-									.decodeResource(getResources(),
-											R.drawable.ic_favorite));
+							favoriteMenuItem.setIcon(R.drawable.ic_favorite);
 						}
 					}
 				});
 			}
-			break;
-		default:
-			break;
+			return true;
 		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	public long insertarFavorito(long idUnconference) {

@@ -19,23 +19,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-        		android:layout_alignParentTop="true"
+                android:layout_alignParentTop="true"
                 android:layout_gravity="center_vertical"
-                android:layout_toLeftOf="@+id/img_favorite"
                 android:text="@string/app_name"
                 android:textSize="22sp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-        		android:layout_alignParentTop="true"
-                android:layout_gravity="center_vertical"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_unfavorite" />
 
             <View
                 android:id="@+id/line"

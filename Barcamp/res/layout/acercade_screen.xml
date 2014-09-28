@@ -16,12 +16,16 @@
         android:id="@+id/web_barcamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="194dp"
         android:autoLink="web"
+        android:background="@drawable/round_corners"
+        android:padding="3dp"
         android:text="@string/web_barcamp_med"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColorLink="@color/blue" />
+        android:textColorLink="@color/blue"
+        android:textSize="@dimen/padding_medium"
+        android:textStyle="bold" />
 
 </RelativeLayout>

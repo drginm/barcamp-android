@@ -103,6 +103,9 @@ public class MainActivity extends SherlockFragmentActivity {
 			BDAdapter dbAdapter = new BDAdapter(MainActivity.this);
 			dbAdapter.openDataBase();
 			if (salas != null && salas.length() > 0) {
+				dbAdapter.delete(AppConstants.Database.NAME_TABLE_PLACE, null, null);
+				dbAdapter.delete(AppConstants.Database.NAME_TABLE_UNCONFERENCE, null, null);
+
 				int unconferenceCounter = 0;
 				HashMap<String, Integer> unconferenceMap = new HashMap<String, Integer>();
 				// insertar data de las salas en la tabla places

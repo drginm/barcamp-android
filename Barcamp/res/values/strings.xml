@@ -11,14 +11,10 @@
   
     <string name="lab_programacion">Desconferencias</string>
     <string name="lab_developers">Desarrollada por</string>
-    
-    <string name="web_orleonsoft">www.orleonsoft.com</string>
-     <string name="web_barcamp_med">www.barcampmedellin.org</string>
-     
-     <string name="no_data">NO DATA</string>
-     
-      <string name="tittle_share_app">Compartir usando </string>
-    
 
-
+    <string name="web_barcamp_med">Manuel G.\n@drginm</string>
+     
+    <string name="no_data">NO DATA</string>
+     
+    <string name="tittle_share_app">Compartir usando </string>
 </resources>

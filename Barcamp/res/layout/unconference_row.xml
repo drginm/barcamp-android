@@ -29,7 +29,7 @@
         android:src="@drawable/ic_favorite" />
 
     <TextView
-        android:id="@+id/lab_speakers"
+        android:id="@+id/lab_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lab_name_unconference"

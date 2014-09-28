@@ -36,7 +36,6 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 	private LayoutInflater mInflater;
 	private ArrayList<Unconference> mListUnconferences;
 	private HashMap<Long, Long> mFavoritosMap;
-	private TextView mLabNamePlace;
 	private UnconferencesEfficientAdapter mListAdapter;
 	private long mIdPlace;
 
@@ -51,8 +50,6 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		mLabNamePlace = (TextView) findViewById(R.id.lab_name_place);
-
 		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mFavoritosMap = new HashMap<Long, Long>();
 
@@ -60,7 +57,7 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 		if (extras != null) {
 			mIdPlace = (extras.getLong(AppConstants.KEY_ID) != 0) ? extras
 					.getLong(AppConstants.KEY_ID) : -1;
-			mLabNamePlace.setText(extras.getString("name_place"));
+			getSupportActionBar().setSubtitle(extras.getString("name_place"));
 		}
 		new ConsultarUnconferencesTask().execute();
 	}
@@ -74,7 +71,7 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 	// view holder
 	static class ViewHolder {
 		TextView nameUnconference;
-		TextView speakers;
+		TextView schedule;
 		ImageView image;
 	}
 
@@ -118,65 +115,68 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 				holder = new ViewHolder();
 				holder.nameUnconference = (TextView) convertView
 						.findViewById(R.id.lab_name_unconference);
-				holder.speakers = (TextView) convertView
-						.findViewById(R.id.lab_speakers);
+				holder.schedule = (TextView) convertView
+						.findViewById(R.id.lab_schedule);
 				holder.image = (ImageView) convertView
 						.findViewById(R.id.img_favorite);
-				holder.image.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(final View v) {
-						if ((Boolean) v.getTag()) {
-							ListUnconferencesActivity.this
-									.runOnUiThread(new Runnable() {
-										@Override
-										public void run() {
-											long idUnconference = getItemId(pos);
-											if (borrarFavorito(idUnconference)) {
-												v.setTag(false);
-												((ImageView) v)
-														.setImageBitmap(unFavorite);
-												mFavoritosMap
-														.remove(idUnconference);
-											}
-										}
-									});
-
-						} else {
-							ListUnconferencesActivity.this
-									.runOnUiThread(new Runnable() {
-										@Override
-										public void run() {
-											v.setTag(true);
-											long idUnconference = getItemId(pos);
-											long idFavorito = insertarFavorito(idUnconference);
-											if (idFavorito != -1) {
-												((ImageView) v)
-														.setImageBitmap(favorite);
-												mFavoritosMap.put(
-														idUnconference,
-														idFavorito);
-											}
-										}
-									});
-						}
-					}
-				});
-
-				// actualiza el estado del boton favorito de cada row
-				final boolean esFavorito = mFavoritosMap
-						.containsKey(getItemId(pos));
-				holder.image.setImageBitmap(esFavorito ? favorite : unFavorite);
-				holder.image.setTag(esFavorito);
 
 				convertView.setTag(holder);
 			}
 
 			holder = (ViewHolder) convertView.getTag();
+
+			holder.image.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(final View v) {
+					if ((Boolean) v.getTag()) {
+						ListUnconferencesActivity.this
+								.runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										long idUnconference = getItemId(pos);
+										if (borrarFavorito(idUnconference)) {
+											v.setTag(false);
+											((ImageView) v)
+													.setImageBitmap(unFavorite);
+											mFavoritosMap
+													.remove(idUnconference);
+										}
+									}
+								});
+
+					} else {
+						ListUnconferencesActivity.this
+								.runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										v.setTag(true);
+										long idUnconference = getItemId(pos);
+										long idFavorito = insertarFavorito(idUnconference);
+										if (idFavorito != -1) {
+											((ImageView) v)
+													.setImageBitmap(favorite);
+											mFavoritosMap.put(
+													idUnconference,
+													idFavorito);
+										}
+									}
+								});
+					}
+				}
+			});
+
 			holder.nameUnconference.setText(mListUnconferences.get(position)
 					.getName());
-			holder.speakers.setText(mListUnconferences.get(position)
-					.getSpeakers());
+			holder.schedule.setText(mListUnconferences.get(position)
+					.getSchedule());
+
+			// actualiza el estado del boton favorito de cada row
+			final boolean esFavorito = mFavoritosMap
+					.containsKey(getItemId(pos));
+			holder.image.setImageBitmap(esFavorito ? favorite : unFavorite);
+			holder.image.setTag(esFavorito);
+
 			return convertView;
 		}
 

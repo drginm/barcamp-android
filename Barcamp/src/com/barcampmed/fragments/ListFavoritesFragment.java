@@ -157,7 +157,7 @@ public class ListFavoritesFragment extends Fragment {
 				// verifica si la lista de favoritos en la db ha cambiado con
 				// respecto a
 				// la lista de favoritos de la vista
-				if (cursor.getCount() != mListUnconference.size()) {
+				//if (cursor.getCount() != mListUnconference.size()) {
 
 					if (cursor.moveToFirst()) {
 						do {
@@ -165,7 +165,7 @@ public class ListFavoritesFragment extends Fragment {
 						} while (cursor.moveToNext());
 					}
 
-				}
+				//}
 				cursor.close();
 			}
 			dbAdapter.close();
@@ -178,8 +178,18 @@ public class ListFavoritesFragment extends Fragment {
 			if (!result.isEmpty()) {
 				new ConsultarUnconferencesFavoritasTask().execute(result);
 			}
+			else {
+				clearList();
+			}
 		}
 
+	}
+
+	private void clearList() {
+		if(mListUnconference != null) {
+			mListUnconference.clear();
+			mListViewFavoritos.invalidateViews();
+		}
 	}
 
 	// consultar unconferences favoritas
@@ -247,6 +257,11 @@ public class ListFavoritesFragment extends Fragment {
 					}
 				}
 			}
+
+			if (favoritos.isEmpty()/* || mListUnconference*/) {
+				clearList();
+			}
+
 			dbAdapter.close();
 			return null;
 		}
