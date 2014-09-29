@@ -184,6 +184,8 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 		public void onItemClick(AdapterView<?> adapter, View view,
 				int position, long id) {
 			Intent intent = new Intent();
+			Bundle extras = getIntent().getExtras();
+
 			intent.setClass(ListUnconferencesActivity.this,
 					UnconferenceDetailActivity.class);
 			Unconference u = (Unconference) getItem(position);
@@ -191,6 +193,7 @@ public class ListUnconferencesActivity extends SherlockListActivity {
 			intent.putExtra("Name", u.getName());
 			intent.putExtra("Description", u.getDescription());
 			intent.putExtra("Place", u.getPlace());
+			intent.putExtra("PlaceName", extras.getString("name_place"));
 			intent.putExtra("Keywords", u.getKeywords());
 			intent.putExtra("Speakers", u.getSpeakers());
 			intent.putExtra("StarTime", u.getStartTime());

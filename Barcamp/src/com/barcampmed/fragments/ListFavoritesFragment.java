@@ -130,6 +130,7 @@ public class ListFavoritesFragment extends Fragment {
 			intent.putExtra("Name", u.getName());
 			intent.putExtra("Description", u.getDescription());
 			intent.putExtra("Place", u.getPlace());
+			intent.putExtra("PlaceName", u.getNamePlace());
 			intent.putExtra("Keywords", u.getKeywords());
 			intent.putExtra("Speakers", u.getSpeakers());
 			intent.putExtra("StarTime", u.getStartTime());

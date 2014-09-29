@@ -51,9 +51,11 @@ public class UnconferenceDetailActivity extends SherlockActivity {
 			esFavorito = extras.getBoolean("esFavorito");
 			mUnconference.setIdentifier(extras.getLong("_id"));
 			mUnconference.setName(extras.getString("Name"));
-			getSupportActionBar().setSubtitle(extras.getString("Name"));
+			getSupportActionBar().setTitle(extras.getString("Name"));
 			mUnconference.setDescription(extras.getString("Description"));
 			mUnconference.setPlace(extras.getLong("Place"));
+			mUnconference.setNamePlace(extras.getString("PlaceName"));
+			getSupportActionBar().setSubtitle(extras.getString("PlaceName"));
 			mUnconference.setKeywords(extras.getString("Keywords"));
 			mUnconference.setSpeakers(extras.getString("Speakers"));
 			mUnconference.setStartTime(extras.getString("StartTime"));
@@ -83,7 +85,7 @@ public class UnconferenceDetailActivity extends SherlockActivity {
 		mLabSchedule.setText(mUnconference.getSchedule());
 		mLabDescription.setText(mUnconference.getDescription());
 		mLabSpeakers.setText("Ponente : "+mUnconference.getSpeakers());
-		mLabKeyWords.setText("keyWords: "+mUnconference.getKeywords());
+		mLabKeyWords.setText("Palabras clave: "+mUnconference.getKeywords());
 	}
 
 	@Override
